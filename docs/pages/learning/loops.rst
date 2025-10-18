@@ -1,0 +1,82 @@
+Loops
+=====
+
+Often when programming, we want to repeat a set of instructions multiple times. For example, we might want to print out the numbers from 1 to 10, or process each item in a list. This is where loops come in handy. Loops allow us to execute a block of code multiple times, either for a specific number of iterations or while a certain condition is true.
+
+For Loops (Definite Iteration)
+------------------------------
+
+Basic syntax
+^^^^^^^^^^^^
+
+A ``for`` loop is used to loop a specific number of times, often iterating over a sequence like a list or a range of numbers. These loops are great when you know in advance how many times you want to repeat the code. The syntax comes in two parts: the loop header and the loop body. It looks like this:
+
+.. code-block:: python
+
+    for item in sequence:
+        # Loop body: code to be repeated
+
+Fixed number of loops
+^^^^^^^^^^^^^^^^^^^^^
+
+A very common use of ``for`` loops is to iterate over a range of numbers using the ``range()`` function. For example, to print the numbers from 1 to 5, you can use the following code:
+
+.. margin::
+
+    Note: The ``range()`` function generates numbers starting from the first argument up to, but not including, the second argument. Such that ``range(1, 6)`` produces the numbers 1, 2, 3, 4, and 5.
+
+    This may seem weird at first, but it's useful for list indices that are zero-based (starting from 0).
+
+.. code-block:: python
+
+    for i in range(1, 6):
+        print(i)
+
+In addition to printing out values, we can use ``for`` loops to perform calculations. For example, let's calculate the sum of the first 10 natural numbers:
+
+.. code-block:: python
+
+    total = 0
+    for i in range(1, 11):
+        total = total + 1
+    print("The sum of the first 10 natural numbers is:", total)
+
+In this example, we initialize a variable ``total`` to 0, then use a ``for`` loop to add each number from 1 to 10 to ``total``. Finally, we print the result.
+
+Looping through a sequence
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can also use ``for`` loops to iterate over the items in a list. For example, let's say we have a list of fruits and we want to print each fruit:
+
+.. code-block:: python
+
+    fruits = ["apple", "banana", "cherry"]
+    for fruit in fruits:
+        print(fruit)
+
+Or if we have two different lists and we want to print out the first three items in each list, we can use a ``range`` loop with indexing:
+
+.. code-block:: python
+
+    colors = ["red", "green", "blue"]
+    animals = ["cat", "dog", "rabbit", "elephant", "giraffe"]
+    for i in range(3):
+        print("Imagine a", colors[i], animals[i])
+
+Importantly, we only loops 3 times here, even though the ``animals`` list has 5 items. This is because we specified the range to be 3. If we tried to loop 5 times, we would get an error when trying to access ``colors[3]`` and ``colors[4]``, since the ``colors`` list only has 3 items (indices 0, 1, and 2).
+
+.. admonition:: Exercise
+
+    Try modifying that last example to loop 5 times and see what error you get! Then add two more colors to the ``colors`` list to fix the error.
+
+Even more things are iterable in Python, including strings! Here's an example of looping through each character in a string:
+
+.. code-block:: python
+
+    message = "Hello"
+    for char in message:
+        print(char)
+
+
+While Loops (Indefinite Iteration)
+----------------------------------

@@ -32,7 +32,7 @@ Part 1: Genotype to Phenotype
 
 Let's warm up by implementing the ``genotype_to_phenotype`` function. This function will take a genotype (a string representing the alleles) and return the corresponding blood type (phenotype).
 
-The function should check that the input genotype is valid (i.e., it should be one of "AA", "AO", "BB", "BO", "AB", or "OO"). If the genotype is valid, the function should return the corresponding blood type. If the genotype is invalid, the function should return "Invalid genotype".
+The function should check that the input genotype is valid (i.e., it should be one of "AA", "AO", "BB", "BO", "AB", or "OO"). If the genotype is valid, the function should return the corresponding blood type. If the genotype is invalid, the function should raise a ValueError with an appropriate error message (e.g. ``raise ValueError("Invalid genotype")``).
 
 Here's some example usage of the function:
 
@@ -92,4 +92,91 @@ Here's some example usage of the function:
 
     random.seed(117)     # this ensure your random numbers match mine
 
+    # TODO
     print(next_generation(["AO", "BO", "AB", "OO"]))
+
+
+Part 4: Simulating multiple generations
+---------------------------------------
+
+Now let's put it together and simulate multiple generations of a population. We'll implement the ``simulate_generations`` function. This function will take an initial population (a list of genotypes) and a number of generations to simulate. The function should repeatedly call the ``next_generation`` function to produce each subsequent generation, starting from the initial population.
+
+The function should return the final population after simulating the specified number of generations.
+
+Here's some example usage of the function:
+
+.. code-block:: python
+
+    import random
+
+    random.seed(117)     # this ensure your random numbers match mine
+
+    initial_population = ["AO", "BO", "AB", "OO"]
+    final_population = simulate_generations(initial_population, 5)
+    print(final_population)
+
+
+Part 5: No one lives forever
+----------------------------
+
+Let's add a bit of realism so that the population doesn't just keep growing forever! Let's add a death rate, such that each individual in the population has a certain probability of dying before the next generation is formed. Let's define this as
+
+.. math::
+
+    D(t) = \begin{cases}
+        0 & t < 5 \\
+        0.1 (t - 5) & 5 \leq t \leq 15 \\
+        1 & t > 15 \\
+    \end{cases}
+
+where $D(t)$ is the death rate after an individual has been alive for $t$ generations. This means that individuals cannot die before 5 generations, then the death rate increases linearly to 100% at 15 generations.
+
+You'll now need to track the age of each individual in the population in addition to their genotype. You can now represent each individual as a tuple of (genotype, age), where genotype is a string and age is an integer instead of just as a string.
+
+Change ``next_generation`` to account for the death rate. If ``part_five == True`` is provided to ``next_generation``, apply the following logic: after offspring are produced, loop through the current population and determine if each individual dies based on their age and the death rate function above. If an individual dies, they should be removed from the population. Note that offspring start at age 0 in the next generation.
+
+Don't forget to update the ages of the individuals who survive to the next generation!
+
+Part 6: Distributions
+---------------------
+
+Wonderful, we've got an evolving population now! Now let's start analysing it. Implement the ``get_genotype_distribution`` and ``get_phenotype_distribution`` functions. These functions will take a population (a list of genotypes) and return a dictionary representing the distribution of genotypes and phenotypes, respectively.
+
+The ``get_genotype_distribution`` function should count the occurrences of each genotype in the population and return a dictionary where the keys are the genotypes and the values are their respective counts.
+
+The ``get_phenotype_distribution`` function should first convert each genotype in the population to its corresponding phenotype using the ``genotype_to_phenotype`` function. Then, it should count the occurrences of each phenotype and return a dictionary where the keys are the phenotypes and the values are their respective counts.
+
+.. admonition:: Bonus challenge: Optimised counting
+    
+    You can imagine that counting this at the end of each generation would work just fine (and I recommend you start by doing this), but if you want to get really fancy you could also track this information as the generations progress to avoid having to loop through the population again at the end.
+    
+    If you get this working, compare the timing of the two approaches for a large population over many generations and celebrate how much faster your fancy approach is!
+
+Here's some example usage of the functions:
+
+.. code-block:: python
+
+    population = ["AO", "BO", "AB", "OO", "AO", "AA"]
+
+    genotype_dist = get_genotype_distribution(population)
+    print(genotype_dist)  # Output: {'AO': 2, 'BO': 1, 'AB': 1, 'OO': 1, 'AA': 1}
+
+    phenotype_dist = get_phenotype_distribution(population)
+    print(phenotype_dist)  # Output: {'A': 3, 'B': 1, 'AB': 1, 'O': 1}
+
+Here are some examples of how the distributions might look after simulating multiple generations:
+
+.. code-block:: python
+
+    import random
+
+    random.seed(117)     # this ensure your random numbers match mine
+
+    initial_population = ["AO", "BO", "AB", "OO"]
+    final_population = simulate_generations(initial_population, 10)
+
+    genotype_dist = get_genotype_distribution(final_population)
+    print(genotype_dist)
+
+    phenotype_dist = get_phenotype_distribution(final_population)
+    print(phenotype_dist)

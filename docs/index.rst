@@ -10,6 +10,7 @@ Home
     pages/learning/variables
     pages/learning/conditions
     pages/learning/loops
+    pages/learning/functions
 
 .. toctree::
     :maxdepth: 4

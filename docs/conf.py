@@ -15,6 +15,7 @@ author = 'Tom Wagg'
 
 extensions = [
     'sphinx_copybutton',
+    'sphinx_design'
 ]
 
 templates_path = ['_templates']

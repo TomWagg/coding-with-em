@@ -11,6 +11,7 @@ Home
     pages/learning/conditions
     pages/learning/loops
     pages/learning/functions
+    pages/learning/files
 
 .. toctree::
     :maxdepth: 4

@@ -11,7 +11,14 @@ Home
     pages/learning/conditions
     pages/learning/loops
     pages/learning/functions
+    pages/learning/imports
     pages/learning/files
+
+.. toctree::
+    :maxdepth: 4
+    :caption: Learning - Advanced
+   
+    pages/learning/random
 
 .. toctree::
     :maxdepth: 4
@@ -19,3 +26,4 @@ Home
 
     pages/problems/greeting
     pages/problems/populations
+    pages/problems/inheritance

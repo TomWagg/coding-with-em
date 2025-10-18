@@ -5,80 +5,25 @@ from math import floor
 def growth(n_start, fertility, months):
     """Calculate the size of a population after a given number of months."""
     # YOUR CODE HERE
-
-    n_total = n_start
-    for i in range(months):
-        n_new = (n_total // 2) * fertility
-        n_total += n_new
-
-    return n_total
+    return 0
 
 
 def time_to_target(n_start, fertility, n_target):
     """Calculate the number of months required for a population to reach a target size."""
-
-    n_total = n_start
-    time = 0
-    while n_total < n_target:
-        n_new = (n_total // 2) * fertility
-        n_total += n_new
-        time += 1
-
     # YOUR CODE HERE
-    return time
+    return 0
 
 
 def time_with_mutation(n_start, fertility, n_target, mutation_factor):
     """Calculate the time for a population to grow with mutation after a certain time."""
-
-    n_total = n_start
-    time = 0
-    original_fertility = fertility
-    while n_total < n_target:
-        if n_total >= n_start * 10:
-            fertility = floor(original_fertility * mutation_factor)
-            if fertility == 0:
-                return -1
-        n_new = (n_total // 2) * fertility
-        n_total += n_new
-        time += 1
-
     # YOUR CODE HERE
-    return time
+    return 0
 
 
 def growth_with_capacity(n_start, fertility, months, mutation_factor, island_capacity, n_ferry):
     """Calculate the time for a population to grow with mutation and island capacity constraints."""
-    ferry_built = False
-    n_total = n_start
-    original_fertility = fertility
-
-    for i in range(months):
-        if n_total >= n_start * 10:
-            fertility = floor(original_fertility * mutation_factor)
-            if fertility == 0:
-                return n_total
-
-        print(i, fertility, n_total, ferry_built)
-
-        capacity_exceeded = n_total > island_capacity
-        if capacity_exceeded and not ferry_built:
-            ferry_built = True
-
-        if capacity_exceeded:
-            n_new = (n_total // 2)
-        else:
-            n_new = (n_total // 2) * fertility
-        n_total += n_new
-
-
-        if ferry_built:
-            n_total -= n_ferry
-            if n_total < 0:
-                n_total = 0
-
     # YOUR CODE HERE
-    return n_total
+    return 0
 
 
 def main():

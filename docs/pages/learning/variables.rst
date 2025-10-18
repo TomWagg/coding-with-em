@@ -67,24 +67,30 @@ Variables can hold different types of data. So far, we've only dealt with string
 
 In other languages (like C) you have to specify what type of data a variable will hold when you create it, but in Python, the type is determined automatically based on the value you assign to it. Here are some common data types you might use:
 
-- **Strings**
-    - Text data, like names or sentences. In Python, strings are enclosed in quotes (either single `'` or double `"`).
-    - ``name = "Emily"``
-- **Integers**
-    - Whole numbers, like 1, 2, 3, etc.
-    - ``age = 28``
-- **Floats**
-    - Decimal numbers, like 3.14 or 2.0.
-    - ``cuteness = 100.0``
-- **Booleans**
-    - True or False values, often used for conditions.
-    - ``is_beautiful = True``
-- **Lists**
-    - A collection of items, which can be of different types.
-    - ``ice_cream_flavors = ["vanilla", "chocolate", "strawberry"]``
-- **Dictionaries**
-    - A collection of key-value pairs.
-    - ``person = {"name": "Emily", "age": 28}``
+.. list-table::
+    :header-rows: 1
+
+    * - Data type
+      - Description
+      - Example
+    * - Strings
+      - Text data, like names or sentences. In Python, strings are enclosed in quotes (either single `'` or double `"`).
+      - ``name = "Emily"``
+    * - Integers
+      - Whole numbers, like 1, 2, 3, etc.
+      - ``age = 28``
+    * - Floats
+      - Decimal numbers, like 3.14 or 2.0.
+      - ``cuteness = 100.0``
+    * - Booleans
+      - True or False values, often used for conditions.
+      - ``is_beautiful = True``
+    * - Lists
+      - A collection of items, which can be of different types.
+      - ``ice_cream_flavors = ["vanilla", "chocolate", "strawberry"]``
+    * - Dictionaries
+      - A collection of key-value pairs.
+      - ``person = {"name": "Emily", "age": 28}``
 
 You can check the type of a variable using the ``type()`` function:
 

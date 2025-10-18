@@ -134,3 +134,9 @@ Now let's build a more complicated condition. Python is quite nice in that it re
 .. dropdown:: Click to show answer 
 
     This condition checks if the user is either between 18 and 65 years old (inclusive) or if their age is an even number. If either of these conditions is true, it prints "You met the condition!" Otherwise, it prints "Suck it up, buttercup."
+
+
+Practice Problem
+----------------
+
+Now that you've learned about conditions, try applying this knowledge in the practice problem found in part three of the `greeting <../problems/greeting.html>`_ problem in the Problems section.

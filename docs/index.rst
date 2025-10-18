@@ -16,3 +16,4 @@ Home
     :caption: Problems
 
     pages/problems/greeting
+    pages/problems/populations

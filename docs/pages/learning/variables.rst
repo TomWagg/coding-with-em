@@ -3,6 +3,10 @@ Variables
 
 In programming, a variable is a way to store information that can be used and changed later in your code. Think of it like a labelled box where you can put something inside, and then you can take it out or change what's inside whenever you want.
 
+.. raw:: html
+
+    <img src="../../_static/boxes.jpg" style="display: block; margin-left: auto; margin-right: auto; width: min(100%, 500px);"/>
+
 The Basics
 ^^^^^^^^^^
 
@@ -63,17 +67,23 @@ Variables can hold different types of data. So far, we've only dealt with string
 
 In other languages (like C) you have to specify what type of data a variable will hold when you create it, but in Python, the type is determined automatically based on the value you assign to it. Here are some common data types you might use:
 
-- **Strings**: Text data, like names or sentences. In Python, strings are enclosed in quotes (either single `'` or double `"`).
+- **Strings**
+    - Text data, like names or sentences. In Python, strings are enclosed in quotes (either single `'` or double `"`).
     - ``name = "Emily"``
-- **Integers**: Whole numbers, like 1, 2, 3, etc.
+- **Integers**
+    - Whole numbers, like 1, 2, 3, etc.
     - ``age = 28``
-- **Floats**: Decimal numbers, like 3.14 or 2.0.
+- **Floats**
+    - Decimal numbers, like 3.14 or 2.0.
     - ``cuteness = 100.0``
-- **Booleans**: True or False values, often used for conditions.
+- **Booleans**
+    - True or False values, often used for conditions.
     - ``is_beautiful = True``
-- **Lists**: A collection of items, which can be of different types.
+- **Lists**
+    - A collection of items, which can be of different types.
     - ``ice_cream_flavors = ["vanilla", "chocolate", "strawberry"]``
-- **Dictionaries**: A collection of key-value pairs.
+- **Dictionaries**
+    - A collection of key-value pairs.
     - ``person = {"name": "Emily", "age": 28}``
 
 You can check the type of a variable using the ``type()`` function:

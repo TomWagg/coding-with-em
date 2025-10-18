@@ -7,6 +7,7 @@ Home
    
     pages/learning/start
     pages/learning/hello
+    pages/learning/variables
 
 .. toctree::
     :maxdepth: 4

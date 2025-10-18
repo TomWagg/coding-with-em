@@ -30,4 +30,6 @@ html_static_path = ['_static']
 html_css_files = ["custom.css"]
 html_title = "Coding with Emily"
 
-# custom css
+html_theme_options = {
+    "use_sidenotes": True,
+}

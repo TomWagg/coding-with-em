@@ -2,8 +2,14 @@ Home
 ====
 
 .. toctree::
-    :maxdepth: 2
-    :caption: Contents:
+    :maxdepth: 4
+    :caption: Learning
    
-    topics/start
-    topics/hello
+    pages/learning/start
+    pages/learning/hello
+
+.. toctree::
+    :maxdepth: 4
+    :caption: Problems
+
+    pages/problems/populations

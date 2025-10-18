@@ -4,6 +4,7 @@ Getting started
 Let's learn to code! First things first, we need to set up our coding environment. We'll be using Python, a popular and beginner-friendly programming language (even though I'd rather start teaching with C... 😛). For this, we'll quickly discuss how to interact with the filesystem using your terminal (aka command line, aka shell), and then install Python. You *could* just write your code in a text editor (even Word... but please don't), but we're going to make your life even easier by using an IDE called VS code.
 
 So our steps are:
+
 1. Learn some terminal basics
 2. Install Python
 3. Install VS Code

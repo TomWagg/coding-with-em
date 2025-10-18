@@ -94,29 +94,10 @@ Here's some example usage of the function:
 
     # TODO
     print(next_generation(["AO", "BO", "AB", "OO"]))
+    
+With that working, you can simulate generations of a population with the ``simulate_generations`` function.
 
-
-Part 4: Simulating multiple generations
----------------------------------------
-
-Now let's put it together and simulate multiple generations of a population. We'll implement the ``simulate_generations`` function. This function will take an initial population (a list of genotypes) and a number of generations to simulate. The function should repeatedly call the ``next_generation`` function to produce each subsequent generation, starting from the initial population.
-
-The function should return the final population after simulating the specified number of generations.
-
-Here's some example usage of the function:
-
-.. code-block:: python
-
-    import random
-
-    random.seed(117)     # this ensure your random numbers match mine
-
-    initial_population = ["AO", "BO", "AB", "OO"]
-    final_population = simulate_generations(initial_population, 5)
-    print(final_population)
-
-
-Part 5: No one lives forever
+Part 4: No one lives forever
 ----------------------------
 
 Let's add a bit of realism so that the population doesn't just keep growing forever! Let's add a death rate, such that each individual in the population has a certain probability of dying before the next generation is formed. Let's define this as
@@ -124,9 +105,9 @@ Let's add a bit of realism so that the population doesn't just keep growing fore
 .. math::
 
     D(t) = \begin{cases}
-        0 & t < 5 \\
-        0.1 (t - 5) & 5 \leq t \leq 15 \\
-        1 & t > 15 \\
+        0 & t < 2 \\
+        (t - 2) / 3 & 2 \leq t \leq 5 \\
+        1 & t > 5 \\
     \end{cases}
 
 where $D(t)$ is the death rate after an individual has been alive for $t$ generations. This means that individuals cannot die before 5 generations, then the death rate increases linearly to 100% at 15 generations.
@@ -137,7 +118,7 @@ Change ``next_generation`` to account for the death rate. If ``part_five == True
 
 Don't forget to update the ages of the individuals who survive to the next generation!
 
-Part 6: Distributions
+Part 5: Distributions
 ---------------------
 
 Wonderful, we've got an evolving population now! Now let's start analysing it. Implement the ``get_genotype_distribution`` and ``get_phenotype_distribution`` functions. These functions will take a population (a list of genotypes) and return a dictionary representing the distribution of genotypes and phenotypes, respectively.
@@ -163,20 +144,4 @@ Here's some example usage of the functions:
 
     phenotype_dist = get_phenotype_distribution(population)
     print(phenotype_dist)  # Output: {'A': 3, 'B': 1, 'AB': 1, 'O': 1}
-
-Here are some examples of how the distributions might look after simulating multiple generations:
-
-.. code-block:: python
-
-    import random
-
-    random.seed(117)     # this ensure your random numbers match mine
-
-    initial_population = ["AO", "BO", "AB", "OO"]
-    final_population = simulate_generations(initial_population, 10)
-
-    genotype_dist = get_genotype_distribution(final_population)
-    print(genotype_dist)
-
-    phenotype_dist = get_phenotype_distribution(final_population)
-    print(phenotype_dist)
+    

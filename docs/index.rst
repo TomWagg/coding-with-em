@@ -8,6 +8,8 @@ Home
     pages/learning/start
     pages/learning/hello
     pages/learning/variables
+    pages/learning/conditions
+    pages/learning/loops
 
 .. toctree::
     :maxdepth: 4

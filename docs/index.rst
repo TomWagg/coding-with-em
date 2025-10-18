@@ -13,4 +13,4 @@ Home
     :maxdepth: 4
     :caption: Problems
 
-    pages/problems/populations
+    pages/problems/greeting

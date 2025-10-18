@@ -132,6 +132,32 @@ You can also repeat strings using the `*` operator:
     laughter = laugh * 3
     print(laughter)
 
+You can convert a string to a number (if it represents a valid number) using the `int()` or `float()` functions:
+
+.. margin::
+
+    If you try to convert a string that doesn't represent a valid number (like "hello") to an integer or float, Python will raise a `ValueError`. Always make sure the string can be converted before doing so!
+
+
+.. code-block:: python
+
+    age_str = "28"
+    age_int = int(age_str)
+    print(age_int)
+
+    pi_str = "3.14"
+    pi_float = float(pi_str)
+    print(pi_float)
+
+This can be particularly useful when you're getting input from users, since input is usually received as a string.
+
+.. code-block:: python
+
+    user_input = input("Enter your age: ")
+    age = int(user_input)
+    print("You are", age, "years old.")
+
+
 Numbers
 -------
 
@@ -184,4 +210,4 @@ Practice
 
 Time for some practice! Try creating your own variables of different types and performing some operations on them. Experimenting is a great way to learn!
 
-You can check out the `populations <../problems/populations.html>`_ problem in the Problems section to apply what you've learned about variables in a practical scenario.
+You can check out the `greeting <../problems/greeting.html>`_ problem in the Problems section to apply what you've learned about variables in a practical scenario.

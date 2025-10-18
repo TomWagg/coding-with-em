@@ -1,4 +1,5 @@
-# Scrabble
+scrabble
+========
 
 - Score scrabble words
 - Identify if words are actually spelt correctly

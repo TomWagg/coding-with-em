@@ -1,4 +1,5 @@
-# Files
+fastq
+=====
 
 Read a fastq file!
 

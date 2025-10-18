@@ -28,4 +28,9 @@ Home
 
     pages/problems/greeting
     pages/problems/populations
+    pages/problems/sequence
+    pages/problems/mutations
     pages/problems/inheritance
+    pages/problems/survival
+    pages/problems/fastq
+    pages/problems/scrabble

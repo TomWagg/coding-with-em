@@ -145,3 +145,14 @@ Here's some example usage of the functions:
     phenotype_dist = get_phenotype_distribution(population)
     print(phenotype_dist)  # Output: {'A': 3, 'B': 1, 'AB': 1, 'O': 1}
     
+Once you implement this, the code should now start to create plots for you showing how the genotype and phenotype distributions evolve over generations!
+
+
+Extra credit: Selective pressure
+--------------------------------
+
+As a final challenge, let's introduce some selective pressure into the population. Let's say that certain genotypes have a higher death rate than others due to environmental factors or diseases. Modify the ``next_generation`` function to use the extra parameter ``extra_death_rates``, which is a dictionary mapping genotypes to additional death rates (between 0 and 1).
+
+When determining if an individual dies, in addition to the age-based death rate, check if their genotype is in the ``extra_death_rates`` dictionary. If it is, add the corresponding extra death rate to the age-based death rate when determining if the individual dies (with a maximum death rate of 1 of course!).
+
+With this, you can see how quickly the population evolves when certain genotypes are at a disadvantage! This is explored in more detail in the `survival <survival.html>`_ problem.

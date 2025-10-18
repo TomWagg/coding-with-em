@@ -1,6 +1,10 @@
 Hello, world!
 =============
 
+.. raw:: html
+
+    <img src="../../_static/hello.png" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 1rem; width: min(100%, 500px);"/>
+
 Time to create your very first Python program! The traditional first program in any programming language is called "Hello, world!" and it simply displays the text "Hello, world!" on the screen.
 
 Any Python program is just a text file with a `.py` extension. You can create this file using any text editor, but since we have VS Code installed, we'll use that. Assuming that you have the learning folder open in VS Code, you can start by creating a new file.

@@ -12,6 +12,10 @@ So our steps are:
 Terminal basics on a Mac
 ------------------------
 
+.. raw:: html
+
+    <img src="../../_static/terminal.png" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 1rem; width: min(100%, 500px);"/>
+
 The terminal is a text-based interface to your computer. You can use it to navigate your filesystem, run programs, and manage files. On a Mac, you can find the Terminal application in the Utilities folder within your Applications folder. Or just search for "Terminal" using Spotlight (Cmd + Space).
 
 By default, the terminal starts in your home directory. You can check where you are by typing:
@@ -40,6 +44,12 @@ You can read more about some common terminal commands here: `A Beginner's Guide 
 
 Installing Python
 -----------------
+
+.. figure:: ../../_static/python.jpg
+   :align: center
+   :width: 500px
+
+   Not this kind...
 
 You can install the latest version of Python from the official website: `python.org <https://www.python.org/downloads/>`_. Download the installer for macOS and follow the instructions to complete the installation. Make sure to check the option to add Python to your PATH during the installation process. This will allow you to run Python from the terminal.
 

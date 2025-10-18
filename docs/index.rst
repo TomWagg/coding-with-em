@@ -19,6 +19,8 @@ Home
     :caption: Learning - Advanced
    
     pages/learning/random
+    pages/learning/vectorisation
+    pages/learning/visualisation
 
 .. toctree::
     :maxdepth: 4

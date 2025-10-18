@@ -40,17 +40,46 @@ Your task is to implement the population growth logic in the ``growth`` function
 Here are some test cases your function should pass:
 
 .. code-block:: python
+    # the syntax for running your function looks like
+    # python scripts/populations.py -p 1 -s <starting_population> -f <fertility_rate> -m <months>
+    # the parameter -p 1 indicates that we want to test part one of the problem
 
     # expected output: 3
-    python scripts/populations.py -s 2 -f 1 -m 1
+    python scripts/populations.py -p 1 -s 2 -f 1 -m 1
 
     # expected output: 1234
-    python scripts/populations.py -s 10 -f 1 -m 12
+    python scripts/populations.py -p 1 -s 10 -f 1 -m 12
 
     # expected output: 67108865
-    python scripts/populations.py -s 5 -f 2 -m 24
+    python scripts/populations.py -p 1 -s 5 -f 2 -m 24
 
     # expected output: 21767823360
-    python scripts/populations.py -s 10 -f 10 -m 12
+    python scripts/populations.py -p 1 -s 10 -f 10 -m 12
 
 
+Part two
+--------
+
+Now let's instead consider how long it takes a rabbit population to reach a certain size. The ``time_to_target`` function in ``scripts/populations.py`` takes three parameters:
+
+- ``n_start``: The initial number of rabbits on the island
+- ``fertility``: The average number of offspring each *pair* of rabbits produce per month
+- ``target``: The target population size
+
+Your task is to implement the logic in the ``time_to_target`` function. The function should return the number of months it takes for the rabbit population to reach, or exceed, the target size.
+
+Here are some test cases your function should pass:
+
+.. code-block:: python
+    # the syntax for running your function looks like
+    # python scripts/populations.py -p 2 -s <starting_population> -f <fertility_rate> -t <target_population>
+    # the parameter -p 2 indicates that we want to test part two of the problem
+
+    # expected output: 1
+    python scripts/populations.py -p 2 -s 2 -f 1 -t 3
+
+    # expected output: 12
+    python scripts/populations.py -p 2 -s 10 -f 1 -t 1234
+
+    # expected output: 12
+    python scripts/populations.py -p 2 -s 50 -f 5 -t 100000000

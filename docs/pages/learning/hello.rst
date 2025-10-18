@@ -9,7 +9,7 @@ Time to create your very first Python program! The traditional first program in 
 
 Any Python program is just a text file with a `.py` extension. You can create this file using any text editor, but since we have VS Code installed, we'll use that. Assuming that you have the learning folder open in VS Code, you can start by creating a new file.
 
-In VS Code, go to the menu bar and select **File > New File** or use the shortcut (Ctrl + N). Then, save the file by going to **File > Save As...** or using the shortcut (Ctrl + S). Name the file `hello.py` and make sure to save it in the `scripts` folder.
+In VS Code, go to the menu bar and select **File > New File** or use the shortcut (Ctrl + N). Then, save the file by going to **File > Save As...** or using the shortcut (Ctrl + S). Name the file `hello.py` and make sure to save it in the `problems` folder.
 
 The command to display test to the user in Python is `print()`. Inside the parentheses, you put the text you want to display, enclosed in quotation marks. You can single or double quotes as long as you're consistent.
 
@@ -23,11 +23,11 @@ Now that you've written your first Python program, it's time to run it! You can 
 
 From the terminal window in VS Code, make sure you're in the `learning_to_code` directory. If you're not sure, you can type `pwd` to print the current directory path.
 
-Then, navigate to the `scripts` folder by typing:
+Then, navigate to the `problems` folder by typing:
 
 .. code-block:: bash
 
-    cd scripts
+    cd problems
 
 Now, to run the `hello.py` program, type the following command:
 

@@ -10,13 +10,13 @@ Part one
 
     Hint: use the ``input()`` function to get user input.
 
-Create a program (in ``scripts/greeting.py``) that asks the user for their name and then greets them with a personalized message. For example, if the user inputs "Alice", the program should output "Hello, Alice! Welcome to the coding world!"
+Create a program (in ``problems/greeting.py``) that asks the user for their name and then greets them with a personalized message. For example, if the user inputs "Alice", the program should output "Hello, Alice! Welcome to the coding world!"
 
 Your final output should look something like this:
 
 .. code-block:: bash
     
-    python scripts/greeting.py
+    python problems/greeting.py
     "Please enter your name: Tom"
     "Hello, Tom! Welcome to the coding world!"
 
@@ -35,7 +35,7 @@ Your final output should look something like this:
 
 .. code-block:: bash
     
-    python scripts/greeting.py
+    python problems/greeting.py
     "Please enter your name: Joe"
     "Please enter your age: 26"
     "Hello Joe! You have lived for at least 819936000 seconds!"
@@ -58,7 +58,7 @@ Your final output should look something like this:
 
 .. code-block:: bash
     
-    python scripts/greeting.py
+    python problems/greeting.py
     "Please enter your name: Sam"
     "Please enter your age: 70"
     "Hello Sam! You have lived for at least 2207520000 seconds!"

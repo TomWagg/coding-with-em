@@ -14,20 +14,20 @@ Overview
 
 Picture a remote island, filled with luscious green grass and lettuce and perfect weather. A few rabbits arrive on the island and decide to make it their new home. As you know, there's nothing a rabbit loves more than to multiply! Your task is to write a program that simulates the growth of the rabbit population on this island over a number of months.
 
-You will add code to the ``scripts/populations.py`` file to model the rabbit population growth.
+You will add code to the ``problems/populations.py`` file to model the rabbit population growth.
 
 You can run this program from the command line, passing in parameters for the initial population size, fertility rate, and number of months to simulate. For example:
 
 .. code-block:: bash
 
-    python scripts/populations.py -s 10 -f 4 -m 3
+    python problems/populations.py -s 10 -f 4 -m 3
 
 I've set up the command line argument parsing for you; your job is to implement the population growth logic. Right now it'll always just return 0 (oh no, where did the rabbits go?!).
 
 Part one: Basic Population Growth
 ---------------------------------
 
-Start by simulating the rabbit population growth without any constraints. You'll be modifying the ``growth`` function in ``scripts/populations.py``. The function takes three parameters:
+Start by simulating the rabbit population growth without any constraints. You'll be modifying the ``growth`` function in ``problems/populations.py``. The function takes three parameters:
 
 - ``n_start``: The initial number of rabbits on the island
 - ``fertility``: The average number of offspring each *pair* of rabbits produce per month
@@ -44,26 +44,26 @@ Here are some test cases your function should pass:
 .. code-block:: python
 
     # the syntax for running your function looks like
-    # python scripts/populations.py -p 1 -s <starting_population> -f <fertility_rate> -m <months>
+    # python problems/populations.py -p 1 -s <starting_population> -f <fertility_rate> -m <months>
     # the parameter -p 1 indicates that we want to test part one of the problem
 
     # expected output: 3
-    python scripts/populations.py -p 1 -s 2 -f 1 -m 1
+    python problems/populations.py -p 1 -s 2 -f 1 -m 1
 
     # expected output: 1234
-    python scripts/populations.py -p 1 -s 10 -f 1 -m 12
+    python problems/populations.py -p 1 -s 10 -f 1 -m 12
 
     # expected output: 67108865
-    python scripts/populations.py -p 1 -s 5 -f 2 -m 24
+    python problems/populations.py -p 1 -s 5 -f 2 -m 24
 
     # expected output: 21767823360
-    python scripts/populations.py -p 1 -s 10 -f 10 -m 12
+    python problems/populations.py -p 1 -s 10 -f 10 -m 12
 
 
 Part two: Timing growth
 -----------------------
 
-Now let's instead consider how long it takes a rabbit population to reach a certain size. The ``time_to_target`` function in ``scripts/populations.py`` takes three parameters:
+Now let's instead consider how long it takes a rabbit population to reach a certain size. The ``time_to_target`` function in ``problems/populations.py`` takes three parameters:
 
 - ``n_start``: The initial number of rabbits on the island
 - ``fertility``: The average number of offspring each *pair* of rabbits produce per month
@@ -76,17 +76,17 @@ Here are some test cases your function should pass:
 .. code-block:: python
 
     # the syntax for running your function looks like
-    # python scripts/populations.py -p 2 -s <starting_population> -f <fertility_rate> -t <target_population>
+    # python problems/populations.py -p 2 -s <starting_population> -f <fertility_rate> -t <target_population>
     # the parameter -p 2 indicates that we want to test part two of the problem
 
     # expected output: 1
-    python scripts/populations.py -p 2 -s 2 -f 1 -t 3
+    python problems/populations.py -p 2 -s 2 -f 1 -t 3
 
     # expected output: 12
-    python scripts/populations.py -p 2 -s 10 -f 1 -t 1234
+    python problems/populations.py -p 2 -s 10 -f 1 -t 1234
 
     # expected output: 12
-    python scripts/populations.py -p 2 -s 50 -f 5 -t 100000000
+    python problems/populations.py -p 2 -s 50 -f 5 -t 100000000
 
 
 Part three: The rabbits are mutating!
@@ -94,7 +94,7 @@ Part three: The rabbits are mutating!
 
 Our magical rabbits have quite an amazing property: after there are at least 10 times the initial population on the island, they all suddenly mutate and change their fertility rate! From that point on, each *pair* of rabbits produces the offspring at a rate that's modified by a given mutation factor.
 
-Change the ``time_with_mutation`` function in ``scripts/populations.py`` to account for this mutation. The function takes the same parameters as ``time_to_target``, with one extra parameter:
+Change the ``time_with_mutation`` function in ``problems/populations.py`` to account for this mutation. The function takes the same parameters as ``time_to_target``, with one extra parameter:
 
 - ``n_start``: The initial number of rabbits on the island
 - ``fertility``: The average number of offspring each *pair* of rabbits produce per month
@@ -126,23 +126,23 @@ Here are some test cases your function should pass:
 .. code-block:: python
 
     # the syntax for running your function looks like
-    # python scripts/populations.py -p 3 -s <starting_population> -f <fertility_rate> -t <target_population> -mf <mutation_factor>
+    # python problems/populations.py -p 3 -s <starting_population> -f <fertility_rate> -t <target_population> -mf <mutation_factor>
     # the parameter -p 3 indicates that we want to test part three of the problem
 
     # expected output: 1
-    python scripts/populations.py -p 3 -s 2 -f 1 -t 3 -mf 2
+    python problems/populations.py -p 3 -s 2 -f 1 -t 3 -mf 2
 
     # expected output: -1
-    python scripts/populations.py -p 3 -s 10 -f 1 -t 1234 -mf 0.1
+    python problems/populations.py -p 3 -s 10 -f 1 -t 1234 -mf 0.1
 
     # expected output: 9
-    python scripts/populations.py -p 3 -s 50 -f 5 -t 100000000 -mf 2
+    python problems/populations.py -p 3 -s 50 -f 5 -t 100000000 -mf 2
 
     # expected output: 12
-    python scripts/populations.py -p 3 -s 50 -f 1 -t 100000000 -mf 20
+    python problems/populations.py -p 3 -s 50 -f 1 -t 100000000 -mf 20
 
     # expected output: 11
-    python scripts/populations.py -p 3 -s 50 -f 1 -t 100000000 -mf 20
+    python problems/populations.py -p 3 -s 50 -f 1 -t 100000000 -mf 20
 
 
 Part four: An island upstate
@@ -181,20 +181,20 @@ Here are some test cases your function should pass:
 .. code-block:: python
 
     # the syntax for running your function looks like
-    # python scripts/populations.py -p 4 -s <starting_population> -f <fertility_rate> -m <months> -mf <mutation_factor> -c <island_capacity> -d <n_ferry>
+    # python problems/populations.py -p 4 -s <starting_population> -f <fertility_rate> -m <months> -mf <mutation_factor> -c <island_capacity> -d <n_ferry>
     # the parameter -p 4 indicates that we want to test part four of the problem
 
     # expected output: 13
-    python scripts/populations.py -p 4 -s 2 -f 1 -m 5 -mf 2 -c 10 -d 3
+    python problems/populations.py -p 4 -s 2 -f 1 -m 5 -mf 2 -c 10 -d 3
 
     # expected output: 0
-    python scripts/populations.py -p 4 -s 2 -f 1 -m 12 -mf 2 -c 10 -d 300
+    python problems/populations.py -p 4 -s 2 -f 1 -m 12 -mf 2 -c 10 -d 300
 
     # expected output: 32452
-    python scripts/populations.py -p 4 -s 20 -f 1 -m 14 -mf 20 -c 1000 -d 300
+    python problems/populations.py -p 4 -s 20 -f 1 -m 14 -mf 20 -c 1000 -d 300
 
     # expected output: 0
-    python scripts/populations.py -p 4 -s 20 -f 1 -m 14 -mf 20 -c 1000 -d 3000
+    python problems/populations.py -p 4 -s 20 -f 1 -m 14 -mf 20 -c 1000 -d 3000
 
 
 Good luck, and may the rabbits multiply in your favour! 🐇🐇🐇

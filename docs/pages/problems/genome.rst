@@ -72,18 +72,19 @@ Your body has some specific tags that track when a protein is being coded for. E
 
 Your ribosomes will scan across from the start to the end codon (clever little fellas), reading chunks of three nucleotides at a time, excluding the end codon. For a coding sequence to be valid, there must be at least codons within it, which can include the start codon. For example "ATGTAG" is not valid, because it only contains "ATG". "ATGATAG" is also not valid, because it contains "ATG" and "ATA", but the "ATA" would eat into the end codon. Instead, something like "ATGGAATAG" would be valid, since it contains "ATG", "GAA" and the end codon. This could have a length of 2 codons. In short, you should ensure that the number of nucleotides between your start and end sequence is a multiple of three!
 
-Your task in this part is to identify the nucleotides that are coding for proteins within your input. Implement the function ``find_proteins(genome)``, which takes a string of nucleotides (``genome``) as an argument, and returns a list with the number of codons contained in each sequence in the genome. Don't include invalid sequences in this list.
+I've given you a dictionary mapping codons to amino acids in the file ``problems/genome.py`` called ``CODON_TO_AMINO_ACID``. You can use this to translate codons into amino acids. For example, the codon "GAA" maps to the amino acid "E" and you would get this value by doing ``CODON_TO_AMINO_ACID["GAA"]``.
+
+Your task in this part is to identify the nucleotides that are coding for proteins within your input. Implement the function ``find_proteins(genome)``, which takes a string of nucleotides (``genome``) as an argument, and returns a list with the protein contained in each sequence in the genome (a string of amino acids). Don't include invalid sequences in this list.
 
 Here are some test cases for you
 
 .. code-block:: python
 
-    # expected output: [2]
+    # expected output: ["MR*"]
     print(find_proteins("ATGAGGTAG"))
 
     # expected output: [], since it's invalid
     print(find_proteins("ATGCCTAG"))
 
-    # expected output: [2, 3]
+    # expected output: ["MK*", "MDT*"]
     print(find_proteins("ATGAAATAGAGGCATGGACACATAACT"))
-

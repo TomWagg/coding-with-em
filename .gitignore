@@ -144,4 +144,5 @@ how_much_code.sh
 *.npy
 
 scratch/
-solutions/
+solutions/*
+!solutions/*.so

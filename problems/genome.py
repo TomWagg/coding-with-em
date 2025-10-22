@@ -95,10 +95,11 @@ def find_proteins(genome):
 #############################################################
 
 import random
-import importlib
+from pathlib import Path
 import sys
-sys.path.append("../solutions")
-sol = importlib.import_module("genome_solution")
+
+sys.path.insert(0, str((Path(__file__).resolve().parent.parent / "solutions/")))
+import genome_solution as sol
 
 # define ansi red and green for terminal output
 RED, GREEN, RESET = "\033[91m", "\033[92m", "\033[0m"

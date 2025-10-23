@@ -1,16 +1,34 @@
 genome
 ======
 
+.. figure:: ../../_static/ribosome_detective.png
+    :alt: Cartoon of a ribosome detective examining a strand of DNA
+    :align: center
+    :width: 500px
+
+    Every protein starts somewhere...
+
 A person's genome can be written as a sequence of nucleotides, consisting of four different ones, Adenine (A), Thymine (T), Guanine (G), Cytosine (C). This means that any particular chunk of genome might look something like this:
+
+.. epigraph::
 
     GATCTCCATGTCAAACTCTATCCATTAGATCTCTA
 
-In this problem, we're going to develop some code to explore a person's genome.
+In this problem, we're going to develop some code to explore a person's genome and find out what proteins are coded for within it.
 
 All of your code will be written in ``problems/genome.py`` and running the script will test your code.
 
-Part one
---------
+Assessing your solutions
+------------------------
+
+Checking your solutions is nice and easy! Just run the script ``problems/genome.py`` and it will let you know if your solutions are correct or not. If they aren't, it will tell you the random test case that failed and what the expected and actual outputs were.
+
+.. code-block:: bash
+
+    python problems/genome.py
+
+Part one: Counting nucleotides
+------------------------------
 
 Your first task is to determine the statistics of different nucleotides within a genome. Implement the ``nucleotide_stats`` function, which takes ``genome``, which is a string of nucleotides, as an argument.
 
@@ -23,8 +41,8 @@ Write some code in this function such that the function returns a dictionary wit
     print(nucleotide_stats("AAAAAAAA"))     # {"A": 8, "T": 0, "G": 0, "C": 0}
 
 
-Part two
---------
+Part two: All of the codons
+---------------------------
 
 Now let's make things a little more complicated. Sets of three nucleotides constitute a "codon". Implement the ``codon_stats`` function, which takes ``genome``, which is a string of nucleotides, as an argument.
 
@@ -37,8 +55,8 @@ Write some code in this function such that the function returns a dictionary wit
     print(codon_stats("ATGCTGGC"))     # {"ATG": 1, "TGC": 1, "GCT": 1, "CTG": 1, "TGG": 1, "GGC": 1} 
     print(codon_stats("AAAAAAAA"))     # {"AAA": 6}
 
-Part three
-----------
+Part three: Palindromic sequences
+---------------------------------
 
 I'm not sure this part is actually useful in biology, but it *is* fun to think about. Let's think about palindromes, which are words that are spelt the same way forwards and backwards - think racecar, hannah, tacocat!
 
@@ -55,16 +73,16 @@ Here are some test cases for you
     print(count_palindromes("ATAATCGTCCTCT", 4))
 
 
-Part four
----------
+Part four: Find the proteins!
+-----------------------------
 
 .. margin::
 
-    If you think about it, given that your ribosomes know how to do this, you should find this part easy! If you're struggling, consider meditation to communicate with your inner self.
+    If you think about it, given that *your* ribosomes know how to do this, you should find this part easy! If you're struggling, consider meditation to communicate with your inner self.
 
 Finally, let's consider something that your body (specifically, the ribosomes in your cells) has to do constantly. Not every part of your genome is actually coding for specific proteins. Lots of it is useless! This is why some mutations have no effect on you.
 
-Your body has some specific tags that track when a protein is being coded for. Everything contained within a start and stop codon will be used to make a protein. The "start" codon is "ATG", while the end codon could be any of "TAA", "TAG", and "TGA", whichever comes first.
+Your body has some specific tags that track when a protein is being coded for. Everything contained within a start and stop codon will be used to make a protein. **The "start" codon is "ATG", while the end codon could be any of "TAA", "TAG", and "TGA", whichever comes first.**
 
 .. margin::
 

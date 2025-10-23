@@ -39,6 +39,15 @@ You should see the output:
 
     Hello, world!
 
-Congratulations! You've just written and run your first Python program. Now try to modify the program to print the name of your favourite coding instructor instead of "world".
+Congratulations! You've just written and run your first Python program 🎉
+
+.. figure:: ../../_static/em_loves_python.png
+    :alt: Emily thinking about python
+    :align: center
+    :width: 500px
+
+A mini task for you
+-------------------
+Now try to modify the program to print the name of your favourite coding instructor instead of "world" (hint: there's a correct answer to who that is).
 
 **Remember to save the file before running it again!**

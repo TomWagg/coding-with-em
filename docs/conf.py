@@ -30,7 +30,13 @@ html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 html_css_files = ["custom.css"]
 html_title = "Coding with Emily"
+html_logo = "_static/em_circle.png"
 
 html_theme_options = {
     "use_sidenotes": True,
+    "logo": {
+        "text": "Coding with Emily",
+        "image_light": "_static/em_circle.png",
+        "image_dark": "_static/em_circle.png",
+    }
 }

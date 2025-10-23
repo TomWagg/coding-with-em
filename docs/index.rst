@@ -1,9 +1,19 @@
 Home
 ====
 
+You've found my website for teaching Emily to code! Here you'll find all the learning materials and problems that I've created for her, it's all genetics themed - I learned new science!
+
+And just look how enthusiastic Emily is about coding:
+
+.. figure:: _static/em_thinking_about_code.png
+    :alt: Emily thinking about code
+    :align: center
+    :width: 500px
+
 .. toctree::
     :maxdepth: 4
     :caption: Learning
+    :hidden:
    
     pages/learning/start
     pages/learning/hello
@@ -17,6 +27,7 @@ Home
 .. toctree::
     :maxdepth: 4
     :caption: Learning - Advanced
+    :hidden:
    
     pages/learning/random
     pages/learning/vectorisation
@@ -25,6 +36,7 @@ Home
 .. toctree::
     :maxdepth: 4
     :caption: Problems
+    :hidden:
 
     pages/problems/greeting
     pages/problems/populations

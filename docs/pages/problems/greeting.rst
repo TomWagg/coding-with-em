@@ -3,6 +3,13 @@ greeting
 
 Welcome to your first coding problem! We're going to apply what you've learned about variables to create a simple greeting program.
 
+.. figure:: ../../_static/em_loves_python.png
+    :alt: Emily thinking about python
+    :align: center
+    :width: 300px
+
+    She's not wrong, you know.
+
 Part one
 --------
 

@@ -1,6 +1,8 @@
 mutations
 =========
 
+*Difficulty*: ★★☆☆☆
+
 .. figure:: ../../_static/mutation_breakup.png
     :alt: Two DNA strands breaking up
     :align: center
@@ -65,7 +67,7 @@ Here are some test cases to get you started:
 Part 2: Classify the mutations
 ------------------------------
 
-Now the real question is: what effect do those mutations have on the resulting protein? To answer this, implement ``classify_mutations(reference, mutated)`` which takes in two nucleotide sequences (strings) and returns a list of tuples, where each tuple contains the index of the mutation and its classification ("silent", "missense", or "nonsense").
+Now the real question is: what effect do those mutations have on the resulting protein? To answer this, implement ``classify_point_mutations(reference, mutated)`` which takes in two nucleotide sequences (strings) and returns a list of tuples, where each tuple contains the index of the mutation and its classification ("silent", "missense", or "nonsense").
 
 You can use the genetic code table from the previous problem to determine the amino acids produced by each codon.
 
@@ -85,12 +87,23 @@ Here are some test cases to get you started:
     classify_mutations(reference, "ATGTAGCCCTAA")   # should return [(3, "nonsense"), (8, "silent")]
 
 
+.. admonition:: Bonus
+
+    What do you notice about the relative frequencies of silent, missense, and nonsense mutations? Does that match up with your intuition? You can try printing out the counts from each test case to see if you notice any patterns.
+
+
 Part 3: (Extra credit) Handle frame-shift mutations
 ---------------------------------------------------
 
+*Difficulty*: ★★★★★ (I mean honestly it's like 7 stars haha)
+
+.. admonition:: Extra credit
+
+    This part is optional and quite a lot more difficult than the rest of the problem! I'd probably skip this and come back to it once you're done with the other problems.
+
 A much more difficult problem is to handle frame-shift mutations, where nucleotides are inserted or deleted from the sequence. This changes the reading frame of all subsequent codons, which can have a drastic effect on the resulting protein.
 
-To identify all insertions, deletions, and substitutions between two sequences via brute force you would need to try all possible ways of aligning the two sequences, which is computationally expensive. We can calculate exactly that cost for two sequences of length $n$ and $m$, since the number of possible alignments is given by
+To identify all insertions, deletions, and substitutions between two sequences via brute force you would need to try all possible ways of aligning the two sequences, which is computationally expensive. Imagine, you would need to try adding or removing any number of characters at each location, as well as changing every character at every location...and *all combinations* of those. We can calculate exactly that cost for two sequences of length :math:`n` and :math:`m`, since the number of possible alignments is given by
 
 .. math::
 
@@ -113,23 +126,56 @@ We're going to work together here to implement this algorithm to align two seque
 Part 3a: Implement Needleman-Wunsch
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First, we're going to implement the Needleman-Wunsch algorithm itself. There's a function called ``needleman_wunsch(s1, s2, match=1, mismatch=-1, gap=-2)`` that takes in two sequences (strings) and returns a tuple of two aligned sequences (strings), where gaps are represented by the "-" character. The parameters ``match``, ``mismatch``, and ``gap`` are the scores for matching characters, mismatched characters, and gaps, respectively.
+First, we're going to implement the Needleman-Wunsch algorithm itself. You're going to write the code for ``needleman_wunsch(s1, s2, match, mismatch, gap)`` that takes in two sequences (strings) and returns a tuple of two aligned sequences (strings), where gaps are represented by the "-" character. The parameters ``match``, ``mismatch``, and ``gap`` are the scores for matching characters, mismatched characters, and gaps, respectively.
 
 Your function should do the following steps:
 
-1. Create a scoring matrix that has size n x m, where n and m are the lengths of the two sequences.
-2. Initialize the first row of the matrix, each cell is equal to the one to its left plus the gap penalty.
-3. Initialize the first column of the matrix, each cell is equal to the one above it plus the gap penalty.
-4. Fill in the rest of the matrix using the following rules:
+1. Create a scoring matrix (a 2D array) that has size n x m, where n and m are the lengths of the two sequences.
+2. Create a traceback matrix (a 2D array) of the same size to keep track of the moves made during the alignment (start with empty strings).
+3. Initialize the first row of the matrix, each cell is equal to the one to its left plus the gap penalty.
+4. Initialize the first column of the matrix, each cell is equal to the one above it plus the gap penalty.
+5. Fill in the rest of the matrix using the following rules:
     - Calculate three scores, one for a diagonal move (match or mismatch), one for an up move (gap in sequence 2), and one for a left move (gap in sequence 1).
-    - The diagonal score is the score from the cell diagonally above and to the left plus either the match score (if the characters are the same) or the mismatch score (if they are different).
-    - The up score is the score from the cell above plus the gap penalty.
-    - The left score is the score from the cell to the left plus the gap penalty.
+        - The diagonal score is the score from the cell diagonally above and to the left plus either the match score (if the characters are the same) or the mismatch score (if they are different).
+        - The up score is the score from the cell above plus the gap penalty.
+        - The left score is the score from the cell to the left plus the gap penalty.
     - The score for the current cell is the maximum of the three scores.
     - Based on which score was chosen, record the move (diagonal, up, or left) in a traceback matrix (as a 'D', 'U', or 'L').
-5. Once the matrix is filled in, perform a traceback starting from the bottom-right cell to construct the aligned sequences.
+6. Once the matrix is filled in, perform a traceback starting from the bottom-right cell of the traceback matrix to construct the aligned sequences.
     - If the move is diagonal, add the corresponding characters from both sequences to the aligned sequences.
     - If the move is up, add the character from sequence 1 and a gap to sequence 2.
     - If the move is left, add a gap to sequence 1 and the character from sequence 2.
-6. Reverse the aligned sequences since they were constructed backwards during the traceback.
-7. Return the aligned sequences as a tuple.
+7. Reverse the aligned sequences since they were constructed backwards during the traceback.
+8. Return the aligned sequences as a tuple.
+
+Tada! You now have an efficient way to align two sequences, even if they have insertions or deletions.
+
+Part 3b: Identify mutations from the alignment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Now that you have the aligned sequences, you can use them to identify mutations!
+
+Implement ``detect_mutations(reference, mutated)`` which takes in two nucleotide sequences (strings) and returns a dictionary with three keys: "alignment", "point_mutations", and "frameshift_mutations".
+
+- The value for "alignment" should be a tuple of the two aligned sequences (strings) returned by ``needleman_wunsch``.
+- The value for "point_mutations" should be a list of tuples, where each tuple contains the index of the mutation, the original nucleotide, and the mutated nucleotide.
+- The value for "frameshift_mutations" should be a list of dictionary, where each dictionary contains the keys: "type" - either "insertion" or "deletion", "seq" - the sequence that was inserted or deleted, "loc" - the location of the insertion/deletion in the mutated genome, and "length" - the length of the insertion or deletion.
+
+The end results should look something like this:
+
+.. code-block:: python
+
+    reference = "ATGGAGCCATAA"
+    mutated   = "ATGGTAGCCTAGA"
+
+    result = detect_mutations(reference, mutated)
+
+    # result["alignment"] should be:
+    # ("ATGGAGCCATAA",
+    #  "ATGGTAGCCTAA")
+
+    # result["point_mutations"] should be:
+    # [(4, 'A', 'T'), (8, 'A', 'C')]
+
+    # result["frameshift_mutations"] should be:
+    # [{"type": "insertion", "seq": "G", "loc": 11, "length": 1}]

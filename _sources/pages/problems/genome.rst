@@ -1,6 +1,8 @@
 genome
 ======
 
+*Difficulty*: ★★★☆☆
+
 .. figure:: ../../_static/ribosome_detective.png
     :alt: Cartoon of a ribosome detective examining a strand of DNA
     :align: center

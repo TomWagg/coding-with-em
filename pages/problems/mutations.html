@@ -344,6 +344,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-classify-the-mutations">Part 2: Classify the mutations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-extra-credit-handle-frame-shift-mutations">Part 3: (Extra credit) Handle frame-shift mutations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3a-implement-needleman-wunsch">Part 3a: Implement Needleman-Wunsch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3b-identify-mutations-from-the-alignment">Part 3b: Identify mutations from the alignment</a></li>
 </ul>
 </li>
 </ul>
@@ -359,6 +360,7 @@ document.write(`
                   
   <section id="mutations">
 <h1>mutations<a class="headerlink" href="#mutations" title="Link to this heading">#</a></h1>
+<p><em>Difficulty</em>: ★★☆☆☆</p>
 <figure class="align-center" id="id1">
 <a class="reference internal image-reference" href="../../_images/mutation_breakup.png"><img alt="Two DNA strands breaking up" src="../../_images/mutation_breakup.png" style="width: 500px;" />
 </a>
@@ -414,7 +416,7 @@ mutation, since the latter will change the reading frame of all subsequent codon
 </section>
 <section id="part-2-classify-the-mutations">
 <h2>Part 2: Classify the mutations<a class="headerlink" href="#part-2-classify-the-mutations" title="Link to this heading">#</a></h2>
-<p>Now the real question is: what effect do those mutations have on the resulting protein? To answer this, implement <code class="docutils literal notranslate"><span class="pre">classify_mutations(reference,</span> <span class="pre">mutated)</span></code> which takes in two nucleotide sequences (strings) and returns a list of tuples, where each tuple contains the index of the mutation and its classification (“silent”, “missense”, or “nonsense”).</p>
+<p>Now the real question is: what effect do those mutations have on the resulting protein? To answer this, implement <code class="docutils literal notranslate"><span class="pre">classify_point_mutations(reference,</span> <span class="pre">mutated)</span></code> which takes in two nucleotide sequences (strings) and returns a list of tuples, where each tuple contains the index of the mutation and its classification (“silent”, “missense”, or “nonsense”).</p>
 <p>You can use the genetic code table from the previous problem to determine the amino acids produced by each codon.</p>
 <p><strong>To simplify things</strong>, the sequences that you receive will always start with a start codon (“ATG”) and end with a stop codon (“TAA”, “TAG”, or “TGA”), and the length of the sequences will always be a multiple of 3. There will also only be point mutations (no insertions or deletions), and only one mutation will occur per codon.</p>
 <p>Recall that silent mutations do not change the amino acid, missense mutations change the amino acid, and nonsense mutations change a codon to a stop codon.</p>
@@ -427,11 +429,20 @@ mutation, since the latter will change the reading frame of all subsequent codon
 <span class="n">classify_mutations</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="s2">&quot;ATGTAGCCCTAA&quot;</span><span class="p">)</span>   <span class="c1"># should return [(3, &quot;nonsense&quot;), (8, &quot;silent&quot;)]</span>
 </pre></div>
 </div>
+<div class="admonition-bonus admonition">
+<p class="admonition-title">Bonus</p>
+<p>What do you notice about the relative frequencies of silent, missense, and nonsense mutations? Does that match up with your intuition? You can try printing out the counts from each test case to see if you notice any patterns.</p>
+</div>
 </section>
 <section id="part-3-extra-credit-handle-frame-shift-mutations">
 <h2>Part 3: (Extra credit) Handle frame-shift mutations<a class="headerlink" href="#part-3-extra-credit-handle-frame-shift-mutations" title="Link to this heading">#</a></h2>
+<p><em>Difficulty</em>: ★★★★★ (I mean honestly it’s like 7 stars haha)</p>
+<div class="admonition-extra-credit admonition">
+<p class="admonition-title">Extra credit</p>
+<p>This part is optional and quite a lot more difficult than the rest of the problem! I’d probably skip this and come back to it once you’re done with the other problems.</p>
+</div>
 <p>A much more difficult problem is to handle frame-shift mutations, where nucleotides are inserted or deleted from the sequence. This changes the reading frame of all subsequent codons, which can have a drastic effect on the resulting protein.</p>
-<p>To identify all insertions, deletions, and substitutions between two sequences via brute force you would need to try all possible ways of aligning the two sequences, which is computationally expensive. We can calculate exactly that cost for two sequences of length $n$ and $m$, since the number of possible alignments is given by</p>
+<p>To identify all insertions, deletions, and substitutions between two sequences via brute force you would need to try all possible ways of aligning the two sequences, which is computationally expensive. Imagine, you would need to try adding or removing any number of characters at each location, as well as changing every character at every location…and <em>all combinations</em> of those. We can calculate exactly that cost for two sequences of length <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(m\)</span>, since the number of possible alignments is given by</p>
 <div class="math notranslate nohighlight">
 \[\text{Number of alignments} = \sum_{k=0}^{\min(n, m)} \binom{m}{k} \binom{n}{k} 2^k\]</div>
 <p>Which means you algorithm time complexity is exponential, approximately</p>
@@ -443,18 +454,24 @@ mutation, since the latter will change the reading frame of all subsequent codon
 <p>We’re going to work together here to implement this algorithm to align two sequences, and then use that alignment to identify mutations.</p>
 <section id="part-3a-implement-needleman-wunsch">
 <h3>Part 3a: Implement Needleman-Wunsch<a class="headerlink" href="#part-3a-implement-needleman-wunsch" title="Link to this heading">#</a></h3>
-<p>First, we’re going to implement the Needleman-Wunsch algorithm itself. There’s a function called <code class="docutils literal notranslate"><span class="pre">needleman_wunsch(s1,</span> <span class="pre">s2,</span> <span class="pre">match=1,</span> <span class="pre">mismatch=-1,</span> <span class="pre">gap=-2)</span></code> that takes in two sequences (strings) and returns a tuple of two aligned sequences (strings), where gaps are represented by the “-” character. The parameters <code class="docutils literal notranslate"><span class="pre">match</span></code>, <code class="docutils literal notranslate"><span class="pre">mismatch</span></code>, and <code class="docutils literal notranslate"><span class="pre">gap</span></code> are the scores for matching characters, mismatched characters, and gaps, respectively.</p>
+<p>First, we’re going to implement the Needleman-Wunsch algorithm itself. You’re going to write the code for <code class="docutils literal notranslate"><span class="pre">needleman_wunsch(s1,</span> <span class="pre">s2,</span> <span class="pre">match,</span> <span class="pre">mismatch,</span> <span class="pre">gap)</span></code> that takes in two sequences (strings) and returns a tuple of two aligned sequences (strings), where gaps are represented by the “-” character. The parameters <code class="docutils literal notranslate"><span class="pre">match</span></code>, <code class="docutils literal notranslate"><span class="pre">mismatch</span></code>, and <code class="docutils literal notranslate"><span class="pre">gap</span></code> are the scores for matching characters, mismatched characters, and gaps, respectively.</p>
 <p>Your function should do the following steps:</p>
 <ol class="arabic simple">
-<li><p>Create a scoring matrix that has size n x m, where n and m are the lengths of the two sequences.</p></li>
+<li><p>Create a scoring matrix (a 2D array) that has size n x m, where n and m are the lengths of the two sequences.</p></li>
+<li><p>Create a traceback matrix (a 2D array) of the same size to keep track of the moves made during the alignment (start with empty strings).</p></li>
 <li><p>Initialize the first row of the matrix, each cell is equal to the one to its left plus the gap penalty.</p></li>
 <li><p>Initialize the first column of the matrix, each cell is equal to the one above it plus the gap penalty.</p></li>
 <li><dl class="simple">
 <dt>Fill in the rest of the matrix using the following rules:</dt><dd><ul class="simple">
-<li><p>Calculate three scores, one for a diagonal move (match or mismatch), one for an up move (gap in sequence 2), and one for a left move (gap in sequence 1).</p></li>
+<li><dl class="simple">
+<dt>Calculate three scores, one for a diagonal move (match or mismatch), one for an up move (gap in sequence 2), and one for a left move (gap in sequence 1).</dt><dd><ul>
 <li><p>The diagonal score is the score from the cell diagonally above and to the left plus either the match score (if the characters are the same) or the mismatch score (if they are different).</p></li>
 <li><p>The up score is the score from the cell above plus the gap penalty.</p></li>
 <li><p>The left score is the score from the cell to the left plus the gap penalty.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 <li><p>The score for the current cell is the maximum of the three scores.</p></li>
 <li><p>Based on which score was chosen, record the move (diagonal, up, or left) in a traceback matrix (as a ‘D’, ‘U’, or ‘L’).</p></li>
 </ul>
@@ -462,7 +479,7 @@ mutation, since the latter will change the reading frame of all subsequent codon
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Once the matrix is filled in, perform a traceback starting from the bottom-right cell to construct the aligned sequences.</dt><dd><ul class="simple">
+<dt>Once the matrix is filled in, perform a traceback starting from the bottom-right cell of the traceback matrix to construct the aligned sequences.</dt><dd><ul class="simple">
 <li><p>If the move is diagonal, add the corresponding characters from both sequences to the aligned sequences.</p></li>
 <li><p>If the move is up, add the character from sequence 1 and a gap to sequence 2.</p></li>
 <li><p>If the move is left, add a gap to sequence 1 and the character from sequence 2.</p></li>
@@ -473,6 +490,34 @@ mutation, since the latter will change the reading frame of all subsequent codon
 <li><p>Reverse the aligned sequences since they were constructed backwards during the traceback.</p></li>
 <li><p>Return the aligned sequences as a tuple.</p></li>
 </ol>
+<p>Tada! You now have an efficient way to align two sequences, even if they have insertions or deletions.</p>
+</section>
+<section id="part-3b-identify-mutations-from-the-alignment">
+<h3>Part 3b: Identify mutations from the alignment<a class="headerlink" href="#part-3b-identify-mutations-from-the-alignment" title="Link to this heading">#</a></h3>
+<p>Now that you have the aligned sequences, you can use them to identify mutations!</p>
+<p>Implement <code class="docutils literal notranslate"><span class="pre">detect_mutations(reference,</span> <span class="pre">mutated)</span></code> which takes in two nucleotide sequences (strings) and returns a dictionary with three keys: “alignment”, “point_mutations”, and “frameshift_mutations”.</p>
+<ul class="simple">
+<li><p>The value for “alignment” should be a tuple of the two aligned sequences (strings) returned by <code class="docutils literal notranslate"><span class="pre">needleman_wunsch</span></code>.</p></li>
+<li><p>The value for “point_mutations” should be a list of tuples, where each tuple contains the index of the mutation, the original nucleotide, and the mutated nucleotide.</p></li>
+<li><p>The value for “frameshift_mutations” should be a list of dictionary, where each dictionary contains the keys: “type” - either “insertion” or “deletion”, “seq” - the sequence that was inserted or deleted, “loc” - the location of the insertion/deletion in the mutated genome, and “length” - the length of the insertion or deletion.</p></li>
+</ul>
+<p>The end results should look something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference</span> <span class="o">=</span> <span class="s2">&quot;ATGGAGCCATAA&quot;</span>
+<span class="n">mutated</span>   <span class="o">=</span> <span class="s2">&quot;ATGGTAGCCTAGA&quot;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">detect_mutations</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">mutated</span><span class="p">)</span>
+
+<span class="c1"># result[&quot;alignment&quot;] should be:</span>
+<span class="c1"># (&quot;ATGGAGCCATAA&quot;,</span>
+<span class="c1">#  &quot;ATGGTAGCCTAA&quot;)</span>
+
+<span class="c1"># result[&quot;point_mutations&quot;] should be:</span>
+<span class="c1"># [(4, &#39;A&#39;, &#39;T&#39;), (8, &#39;A&#39;, &#39;C&#39;)]</span>
+
+<span class="c1"># result[&quot;frameshift_mutations&quot;] should be:</span>
+<span class="c1"># [{&quot;type&quot;: &quot;insertion&quot;, &quot;seq&quot;: &quot;G&quot;, &quot;loc&quot;: 11, &quot;length&quot;: 1}]</span>
+</pre></div>
+</div>
 </section>
 </section>
 </section>
@@ -528,6 +573,7 @@ mutation, since the latter will change the reading frame of all subsequent codon
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-classify-the-mutations">Part 2: Classify the mutations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-extra-credit-handle-frame-shift-mutations">Part 3: (Extra credit) Handle frame-shift mutations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3a-implement-needleman-wunsch">Part 3a: Implement Needleman-Wunsch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3b-identify-mutations-from-the-alignment">Part 3b: Identify mutations from the alignment</a></li>
 </ul>
 </li>
 </ul>

@@ -46,6 +46,7 @@
     <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'pages/problems/survival';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -314,7 +315,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -330,6 +333,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your Task</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -341,8 +353,42 @@ document.write(`
                   
   <section id="survival">
 <h1>survival<a class="headerlink" href="#survival" title="Link to this heading">#</a></h1>
-<p>Something about beneficial mutations and how quickly they take over.</p>
-<p><a class="reference external" href="https://www.tomwagg.com/html/moran_circles.html">https://www.tomwagg.com/html/moran_circles.html</a></p>
+<p><em>Difficulty</em>: ★★★★☆</p>
+<figure class="align-center" id="id1">
+<img alt="../../_images/boardroom_survival.png" src="../../_images/boardroom_survival.png" />
+<figcaption>
+<p><span class="caption-text">Survival of the fittest!</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Welcome to the survival problem - where only the fittest survive!</p>
+<p>Nah just kidding. In this problem you’re going to simulate the spread of a mutation in a population of alleles and track genetic drift and natural selection. Not too tricky right?</p>
+<section id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Link to this heading">#</a></h2>
+<p>For this problem, we’re going to be implementing a Moran process. This is a simple model of genetic drift in a fixed-size population. In this population, individuals can have one of two alleles: <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(a\)</span>.</p>
+<p>The population size is constant, and at each time step, one individual is chosen to reproduce and one individual is chosen to die. During reproduction, mutations can occur, changing an allele from <span class="math notranslate nohighlight">\(A\)</span> to <span class="math notranslate nohighlight">\(a\)</span> or vice versa. The rate of an <span class="math notranslate nohighlight">\(A\)</span> allele mutating to <span class="math notranslate nohighlight">\(a\)</span> is given by <span class="math notranslate nohighlight">\(\mu\)</span>, and the rate of an <span class="math notranslate nohighlight">\(a\)</span> allele mutating to <span class="math notranslate nohighlight">\(A\)</span> is given by <span class="math notranslate nohighlight">\(\nu\)</span>.</p>
+<p>We can also model natural selection by assigning a relative fitness to the alleles. Let’s say allele <span class="math notranslate nohighlight">\(A\)</span> has a relative fitness of <span class="math notranslate nohighlight">\(s\)</span> compared to allele <span class="math notranslate nohighlight">\(a\)</span>, such that during each timestep, the probability of choosing an individual with allele <span class="math notranslate nohighlight">\(A\)</span> to reproduce is proportional to <span class="math notranslate nohighlight">\(1 + s\)</span>, while the probability of choosing an individual with allele <span class="math notranslate nohighlight">\(a\)</span> is proportional to <span class="math notranslate nohighlight">\(1\)</span>. Clearly, if <span class="math notranslate nohighlight">\(s &gt; 0\)</span>, allele <span class="math notranslate nohighlight">\(A\)</span> is favored by selection and is likely to increase in frequency over time.</p>
+<p>We <strong>could</strong> do some maths here to write out a diffusion equation for the allele frequency dynamics…</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Warning: Maths is hidden here!</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">If you really want to get into the nitty-gritty of the maths behind this process, the allele frequency dynamics can be described by the following diffusion equation which has terms for selection, mutation, and genetic drift:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+    \bar{\omega} \cdot \frac{\partial P(x, \tau)}{\partial \tau} = &amp;- \underbrace{s \frac{\partial}{\partial x}\bigg(P(x, \tau)\cdot x(1-x)\bigg)}_{\text{selection}} \\
+    &amp;+ \underbrace{ \mu \frac{\partial}{\partial x} \bigg( x \cdot P(x, \tau) \bigg) - \nu \frac{\partial}{\partial x} \bigg( (1 - x) \cdot P(x, \tau) \bigg)}_{\text{mutation}} \\
+    &amp;+ \underbrace{ \frac{1}{N} \frac{\partial^2}{\partial^2 x}\bigg(P(x, \tau)\cdot x(1-x)\bigg) }_{\text{drift}},
+\end{split}\end{split}\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\bar{\omega}\)</span> is the average fitness, which is given by</p>
+<div class="math notranslate nohighlight">
+\[\bar{\omega} =  \frac{1}{N} \bigg( n(1 + s) + (N - n) \bigg),\]</div>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(P(x, \tau)\)</span> is the probability that the frequency of allele <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(x\)</span> at time <span class="math notranslate nohighlight">\(\tau\)</span>, <span class="math notranslate nohighlight">\(s\)</span> is the relative fitness of allele <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span> is the mutation rate from <span class="math notranslate nohighlight">\(A\)</span> to <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(\nu\)</span> is the mutation rate from <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(N\)</span> is the population size, and <span class="math notranslate nohighlight">\(n\)</span> is the number of individuals with allele <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p class="sd-card-text">For more details and an animation of this whole process, check out <a class="reference external" href="https://www.tomwagg.com/html/moran_circles.html">this link</a>.</p>
+</div>
+</details><p>…or we can just simulate it!</p>
+</section>
+<section id="your-task">
+<h2>Your Task<a class="headerlink" href="#your-task" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
 
@@ -380,6 +426,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your Task</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

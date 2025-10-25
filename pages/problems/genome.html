@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>genome &#8212; Coding with Emily</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=cd1e198d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/problems/genome';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="mutations" href="mutations.html" />
+    <link rel="prev" title="populations" href="populations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/em_circle.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="../../_static/em_circle.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">Coding with Emily</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../learning/start.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/hello.html">Hello, world!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/conditions.html">Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/loops.html">Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/imports.html">Imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/files.html">Files</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Learning - Advanced</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../learning/random.html">Randomness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/vectorisation.html">Vectorisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/visualisation.html">Visualisation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Problems</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="greeting.html">greeting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="populations.html">populations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">genome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutations.html">mutations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inheritance.html">inheritance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survival.html">survival</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastq.html">fastq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrabble.html">scrabble</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/pages/problems/genome.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>genome</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessing-your-solutions">Assessing your solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-one-counting-nucleotides">Part one: Counting nucleotides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-two-all-of-the-codons">Part two: All of the codons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-three-palindromic-sequences">Part three: Palindromic sequences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-four-find-the-proteins">Part four: Find the proteins!</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="genome">
+<h1>genome<a class="headerlink" href="#genome" title="Link to this heading">#</a></h1>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/ribosome_detective.png"><img alt="Cartoon of a ribosome detective examining a strand of DNA" src="../../_images/ribosome_detective.png" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Every protein starts somewhere…</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>A person’s genome can be written as a sequence of nucleotides, consisting of four different ones, Adenine (A), Thymine (T), Guanine (G), Cytosine (C). This means that any particular chunk of genome might look something like this:</p>
+<blockquote class="epigraph">
+<div><p>GATCTCCATGTCAAACTCTATCCATTAGATCTCTA</p>
+</div></blockquote>
+<p>In this problem, we’re going to develop some code to explore a person’s genome and find out what proteins are coded for within it.</p>
+<p>All of your code will be written in <code class="docutils literal notranslate"><span class="pre">problems/genome.py</span></code> and running the script will test your code.</p>
+<section id="assessing-your-solutions">
+<h2>Assessing your solutions<a class="headerlink" href="#assessing-your-solutions" title="Link to this heading">#</a></h2>
+<p>Checking your solutions is nice and easy! Just run the script <code class="docutils literal notranslate"><span class="pre">problems/genome.py</span></code> and it will let you know if your solutions are correct or not. If they aren’t, it will tell you the random test case that failed and what the expected and actual outputs were.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>problems/genome.py
+</pre></div>
+</div>
+</section>
+<section id="part-one-counting-nucleotides">
+<h2>Part one: Counting nucleotides<a class="headerlink" href="#part-one-counting-nucleotides" title="Link to this heading">#</a></h2>
+<p>Your first task is to determine the statistics of different nucleotides within a genome. Implement the <code class="docutils literal notranslate"><span class="pre">nucleotide_stats</span></code> function, which takes <code class="docutils literal notranslate"><span class="pre">genome</span></code>, which is a string of nucleotides, as an argument.</p>
+<p>Write some code in this function such that the function returns a dictionary with the counts of each nucleotide. Here are some test cases for you:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">nucleotide_stats</span><span class="p">(</span><span class="s2">&quot;ATGC&quot;</span><span class="p">))</span>         <span class="c1"># {&quot;A&quot;: 1, &quot;T&quot;: 1, &quot;G&quot;: 1, &quot;C&quot;: 1}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nucleotide_stats</span><span class="p">(</span><span class="s2">&quot;ATGCTGGC&quot;</span><span class="p">))</span>     <span class="c1"># {&quot;A&quot;: 1, &quot;T&quot;: 2, &quot;G&quot;: 3, &quot;C&quot;: 2}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nucleotide_stats</span><span class="p">(</span><span class="s2">&quot;AAAAAAAA&quot;</span><span class="p">))</span>     <span class="c1"># {&quot;A&quot;: 8, &quot;T&quot;: 0, &quot;G&quot;: 0, &quot;C&quot;: 0}</span>
+</pre></div>
+</div>
+</section>
+<section id="part-two-all-of-the-codons">
+<h2>Part two: All of the codons<a class="headerlink" href="#part-two-all-of-the-codons" title="Link to this heading">#</a></h2>
+<p>Now let’s make things a little more complicated. Sets of three nucleotides constitute a “codon”. Implement the <code class="docutils literal notranslate"><span class="pre">codon_stats</span></code> function, which takes <code class="docutils literal notranslate"><span class="pre">genome</span></code>, which is a string of nucleotides, as an argument.</p>
+<p>Write some code in this function such that the function returns a dictionary with the counts of each <em>unique codon</em>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">codon_stats</span><span class="p">(</span><span class="s2">&quot;ATGC&quot;</span><span class="p">))</span>         <span class="c1"># {&quot;ATG&quot;: 1, &quot;TGC&quot;: 1}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">codon_stats</span><span class="p">(</span><span class="s2">&quot;ATGCTGGC&quot;</span><span class="p">))</span>     <span class="c1"># {&quot;ATG&quot;: 1, &quot;TGC&quot;: 1, &quot;GCT&quot;: 1, &quot;CTG&quot;: 1, &quot;TGG&quot;: 1, &quot;GGC&quot;: 1}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">codon_stats</span><span class="p">(</span><span class="s2">&quot;AAAAAAAA&quot;</span><span class="p">))</span>     <span class="c1"># {&quot;AAA&quot;: 6}</span>
+</pre></div>
+</div>
+</section>
+<section id="part-three-palindromic-sequences">
+<h2>Part three: Palindromic sequences<a class="headerlink" href="#part-three-palindromic-sequences" title="Link to this heading">#</a></h2>
+<p>I’m not sure this part is actually useful in biology, but it <em>is</em> fun to think about. Let’s think about palindromes, which are words that are spelt the same way forwards and backwards - think racecar, hannah, tacocat!</p>
+<p>Your task, should you choose to accept it (…which you have to, this is your homework) is to implement the function <code class="docutils literal notranslate"><span class="pre">count_palindromes(genome,</span> <span class="pre">length)</span></code>, which takes a string of nucleotides (<code class="docutils literal notranslate"><span class="pre">genome</span></code>) and an integer <code class="docutils literal notranslate"><span class="pre">length</span></code> as arguments. This function should return the number of palindromes that are exactly <code class="docutils literal notranslate"><span class="pre">length</span></code> characters long.</p>
+<p>Here are some test cases for you</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># this should output 3, coming from (ATA, CTC, TCT)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">count_palindromes</span><span class="p">(</span><span class="s2">&quot;ATAATCGTCCTCT&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># this should output 2, coming from (TAAT, TCCT)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">count_palindromes</span><span class="p">(</span><span class="s2">&quot;ATAATCGTCCTCT&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="part-four-find-the-proteins">
+<h2>Part four: Find the proteins!<a class="headerlink" href="#part-four-find-the-proteins" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>If you think about it, given that <em>your</em> ribosomes know how to do this, you should find this part easy! If you’re struggling, consider meditation to communicate with your inner self.</p>
+</aside>
+<p>Finally, let’s consider something that your body (specifically, the ribosomes in your cells) has to do constantly. Not every part of your genome is actually coding for specific proteins. Lots of it is useless! This is why some mutations have no effect on you.</p>
+<p>Your body has some specific tags that track when a protein is being coded for. Everything contained within a start and stop codon will be used to make a protein. <strong>The “start” codon is “ATG”, while the end codon could be any of “TAA”, “TAG”, and “TGA”, whichever comes first.</strong></p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>In reality, coding sequences have more requirements than this, but this gives us a good approximation.</p>
+</aside>
+<p>Your ribosomes will scan across from the start to the end codon (clever little fellas), reading chunks of three nucleotides at a time, excluding the end codon. For a coding sequence to be valid, there must be at least codons within it, which can include the start codon. For example “ATGTAG” is not valid, because it only contains “ATG”. “ATGATAG” is also not valid, because it contains “ATG” and “ATA”, but the “ATA” would eat into the end codon. Instead, something like “ATGGAATAG” would be valid, since it contains “ATG”, “GAA” and the end codon. This could have a length of 2 codons. In short, you should ensure that the number of nucleotides between your start and end sequence is a multiple of three!</p>
+<p>I’ve given you a dictionary mapping codons to amino acids in the file <code class="docutils literal notranslate"><span class="pre">problems/genome.py</span></code> called <code class="docutils literal notranslate"><span class="pre">CODON_TO_AMINO_ACID</span></code>. You can use this to translate codons into amino acids. For example, the codon “GAA” maps to the amino acid “E” and you would get this value by doing <code class="docutils literal notranslate"><span class="pre">CODON_TO_AMINO_ACID[&quot;GAA&quot;]</span></code>.</p>
+<p>Your task in this part is to identify the nucleotides that are coding for proteins within your input. Implement the function <code class="docutils literal notranslate"><span class="pre">find_proteins(genome)</span></code>, which takes a string of nucleotides (<code class="docutils literal notranslate"><span class="pre">genome</span></code>) as an argument, and returns a list with the protein contained in each sequence in the genome (a string of amino acids). Don’t include invalid sequences in this list.</p>
+<p>Here are some test cases for you</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># expected output: [&quot;MR*&quot;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">find_proteins</span><span class="p">(</span><span class="s2">&quot;ATGAGGTAG&quot;</span><span class="p">))</span>
+
+<span class="c1"># expected output: [], since it&#39;s invalid</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">find_proteins</span><span class="p">(</span><span class="s2">&quot;ATGCCTAG&quot;</span><span class="p">))</span>
+
+<span class="c1"># expected output: [&quot;MK*&quot;, &quot;MDT*&quot;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">find_proteins</span><span class="p">(</span><span class="s2">&quot;ATGAAATAGAGGCATGGACACATAACT&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="populations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">populations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="mutations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">mutations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessing-your-solutions">Assessing your solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-one-counting-nucleotides">Part one: Counting nucleotides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-two-all-of-the-codons">Part two: All of the codons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-three-palindromic-sequences">Part three: Palindromic sequences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-four-find-the-proteins">Part four: Find the proteins!</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tom Wagg
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Tom Wagg.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

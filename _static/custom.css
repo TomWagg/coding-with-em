@@ -1,0 +1,8 @@
+:root {
+    --pst-color-primary: #429cdd!important;
+    --pst-color-secondary: #22628f!important;
+}
+
+.navbar-brand img {
+    max-width: min(100%, 150px);
+}

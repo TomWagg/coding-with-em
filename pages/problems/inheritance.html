@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>inheritance &#8212; Coding with Emily</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=cd1e198d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/problems/inheritance';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="survival" href="survival.html" />
+    <link rel="prev" title="mutations" href="mutations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/em_circle.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="../../_static/em_circle.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">Coding with Emily</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../learning/start.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/hello.html">Hello, world!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/conditions.html">Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/loops.html">Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/imports.html">Imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/files.html">Files</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Learning - Advanced</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../learning/random.html">Randomness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/vectorisation.html">Vectorisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning/visualisation.html">Visualisation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Problems</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="greeting.html">greeting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="populations.html">populations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genome.html">genome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutations.html">mutations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">inheritance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survival.html">survival</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastq.html">fastq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrabble.html">scrabble</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/pages/problems/inheritance.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>inheritance</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-overview">Problem overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-genotype-to-phenotype">Part 1: Genotype to Phenotype</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-simulating-inheritance">Part 2: Simulating inheritance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-generation-simulation">Part 3: Generation simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-no-one-lives-forever">Part 4: No one lives forever</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-distributions">Part 5: Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-selective-pressure">Extra credit: Selective pressure</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="inheritance">
+<h1>inheritance<a class="headerlink" href="#inheritance" title="Link to this heading">#</a></h1>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/inheritance.png"><img alt="../../_images/inheritance.png" src="../../_images/inheritance.png" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">It’s not just fashion sense that is inherited!</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We inherit all sorts of things from our parents, even beyond a bad sense of humour! One particular trait that is inherited from parents is blood type. Blood type is determined by the alleles we inherit from our parents. There are three main alleles for blood type: A, B, and O. The A and B alleles are dominant, while the O allele is recessive.</p>
+<p>These alleles determine your genotype, which in turn determines your blood type (phenotype). Here are the possible genotypes and their corresponding blood types:</p>
+<ul class="simple">
+<li><p>AA or AO: Blood type A</p></li>
+<li><p>BB or BO: Blood type B</p></li>
+<li><p>AB: Blood type AB</p></li>
+<li><p>OO: Blood type O</p></li>
+</ul>
+<p>Let’s look at an example. If one parent has blood type A (genotype AO) and the other parent has blood type B (genotype BO), their children could have the following genotypes [AO, BO, AB, OO].</p>
+<p>This means that the children could have any of the four blood types: A, B, AB, or O. The specific blood type of each child would depend on which alleles they inherit from their parents.</p>
+<p>We’re not going to worry about Rh factor in this problem, just the ABO blood group system.</p>
+<section id="problem-overview">
+<h2>Problem overview<a class="headerlink" href="#problem-overview" title="Link to this heading">#</a></h2>
+<p>We’re going to determine how the statistics of a population’s genotypes and phenotypes change over generations. This can inform us also about who can donate blood to whom in a population. But we’ll split this problem into a couple of parts and build up to it.</p>
+</section>
+<section id="part-1-genotype-to-phenotype">
+<h2>Part 1: Genotype to Phenotype<a class="headerlink" href="#part-1-genotype-to-phenotype" title="Link to this heading">#</a></h2>
+<p>Let’s warm up by implementing the <code class="docutils literal notranslate"><span class="pre">genotype_to_phenotype</span></code> function. This function will take a genotype (a string representing the alleles) and return the corresponding blood type (phenotype).</p>
+<p>The function should check that the input genotype is valid (i.e., it should be one of “AA”, “AO”, “BB”, “BO”, “AB”, or “OO”). If the genotype is valid, the function should return the corresponding blood type. If the genotype is invalid, the function should raise a ValueError with an appropriate error message (e.g. <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">ValueError(&quot;Invalid</span> <span class="pre">genotype&quot;)</span></code>).</p>
+<p>Here’s some example usage of the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">genotype_to_phenotype</span><span class="p">(</span><span class="s2">&quot;AA&quot;</span><span class="p">))</span>  <span class="c1"># Output: A</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">genotype_to_phenotype</span><span class="p">(</span><span class="s2">&quot;BO&quot;</span><span class="p">))</span>  <span class="c1"># Output: B</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">genotype_to_phenotype</span><span class="p">(</span><span class="s2">&quot;AB&quot;</span><span class="p">))</span>  <span class="c1"># Output: AB</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">genotype_to_phenotype</span><span class="p">(</span><span class="s2">&quot;OO&quot;</span><span class="p">))</span>  <span class="c1"># Output: O</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">genotype_to_phenotype</span><span class="p">(</span><span class="s2">&quot;AC&quot;</span><span class="p">))</span>  <span class="c1"># Output: Invalid genotype</span>
+</pre></div>
+</div>
+</section>
+<section id="part-2-simulating-inheritance">
+<h2>Part 2: Simulating inheritance<a class="headerlink" href="#part-2-simulating-inheritance" title="Link to this heading">#</a></h2>
+<p>Next, we’ll implement the <code class="docutils literal notranslate"><span class="pre">produce_offspring</span></code> function. This function will take the genotypes of two parents and simulate the inheritance of alleles to produce the genotype of an offspring.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">random.choice()</span></code> function can be used to randomly select an item from a sequence. This can be a list but it can also be a string, since strings are sequences of characters. So <code class="docutils literal notranslate"><span class="pre">random.choice(&quot;AO&quot;)</span></code> could return either “A” or “O”.</p>
+</aside>
+<p>The function should randomly select one allele from each parent to form the offspring’s genotype. You can use the <code class="docutils literal notranslate"><span class="pre">random.choice()</span></code> function from the <code class="docutils literal notranslate"><span class="pre">random</span></code> module to help with this. We’ve already imported the <code class="docutils literal notranslate"><span class="pre">random</span></code> module for you.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Single characters can be compared alphabetically in Python, so “A” &lt; “O” will evaluate to <code class="docutils literal notranslate"><span class="pre">True</span></code>, but “O” &lt; “A” will evaluate to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</aside>
+<p>Note that the order of alleles in the genotype does not matter (e.g., “AO” is the same as “OA”) - so you should sort the alleles in the resulting genotype alphabetically before returning it.</p>
+<p>Here’s some example usage of the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">produce_offspring</span><span class="p">(</span><span class="s2">&quot;AO&quot;</span><span class="p">,</span> <span class="s2">&quot;BO&quot;</span><span class="p">))</span>  <span class="c1"># Output could be AO, AB, BO, or OO</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">produce_offspring</span><span class="p">(</span><span class="s2">&quot;AA&quot;</span><span class="p">,</span> <span class="s2">&quot;OO&quot;</span><span class="p">))</span>  <span class="c1"># Output will always be AO</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">produce_offspring</span><span class="p">(</span><span class="s2">&quot;AB&quot;</span><span class="p">,</span> <span class="s2">&quot;AB&quot;</span><span class="p">))</span>  <span class="c1"># Output could be AA, AB, or BB</span>
+</pre></div>
+</div>
+</section>
+<section id="part-3-generation-simulation">
+<h2>Part 3: Generation simulation<a class="headerlink" href="#part-3-generation-simulation" title="Link to this heading">#</a></h2>
+<p>Now let’s simulate how the next generation of a population is formed based on the genotypes of the current generation. We’ll implement the <code class="docutils literal notranslate"><span class="pre">next_generation</span></code> function. This function will take a list of genotypes representing the current population and produce a new list of genotypes representing the next generation.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>There’s a couple of different ways you could implement the pairing of parents. I would recommend considering how the <code class="docutils literal notranslate"><span class="pre">random.shuffle()</span></code> could be very useful for making this quite simple for you!</p>
+</aside>
+<p>The first thing this function needs to do is randomly pair up individuals in the current population to form parents. If the population has an odd number of individuals, one individual will not be able to mate and will be left out of the next generation (tag yourself). Don’t worry about who is paired with whom - just pair them randomly and forget the ethical implications!</p>
+<p>Once you have your pairs of parents, loop through each pair and use the <code class="docutils literal notranslate"><span class="pre">produce_offspring</span></code> function to generate an offspring genotype for each pair. Add each offspring genotype to the population list to create the next generation. Return this new list of genotypes as your result.</p>
+<p>Here’s some example usage of the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">117</span><span class="p">)</span>     <span class="c1"># this ensure your random numbers match mine</span>
+
+<span class="c1"># TODO</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">next_generation</span><span class="p">([</span><span class="s2">&quot;AO&quot;</span><span class="p">,</span> <span class="s2">&quot;BO&quot;</span><span class="p">,</span> <span class="s2">&quot;AB&quot;</span><span class="p">,</span> <span class="s2">&quot;OO&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>With that working, you can simulate generations of a population with the <code class="docutils literal notranslate"><span class="pre">simulate_generations</span></code> function.</p>
+</section>
+<section id="part-4-no-one-lives-forever">
+<h2>Part 4: No one lives forever<a class="headerlink" href="#part-4-no-one-lives-forever" title="Link to this heading">#</a></h2>
+<p>Let’s add a bit of realism so that the population doesn’t just keep growing forever! Let’s add a death rate, such that each individual in the population has a certain probability of dying before the next generation is formed. Let’s define this as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}D(t) = \begin{cases}
+    0 &amp; t &lt; 2 \\
+    (t - 2) / 3 &amp; 2 \leq t \leq 5 \\
+    1 &amp; t &gt; 5 \\
+\end{cases}\end{split}\]</div>
+<p>where $D(t)$ is the death rate after an individual has been alive for $t$ generations. This means that individuals cannot die before 5 generations, then the death rate increases linearly to 100% at 15 generations.</p>
+<p>You’ll now need to track the age of each individual in the population in addition to their genotype. You can now represent each individual as a tuple of (genotype, age), where genotype is a string and age is an integer instead of just as a string.</p>
+<p>Change <code class="docutils literal notranslate"><span class="pre">next_generation</span></code> to account for the death rate. If <code class="docutils literal notranslate"><span class="pre">part_five</span> <span class="pre">==</span> <span class="pre">True</span></code> is provided to <code class="docutils literal notranslate"><span class="pre">next_generation</span></code>, apply the following logic: after offspring are produced, loop through the current population and determine if each individual dies based on their age and the death rate function above. If an individual dies, they should be removed from the population. Note that offspring start at age 0 in the next generation.</p>
+<p>Don’t forget to update the ages of the individuals who survive to the next generation!</p>
+</section>
+<section id="part-5-distributions">
+<h2>Part 5: Distributions<a class="headerlink" href="#part-5-distributions" title="Link to this heading">#</a></h2>
+<p>Wonderful, we’ve got an evolving population now! Now let’s start analysing it. Implement the <code class="docutils literal notranslate"><span class="pre">get_genotype_distribution</span></code> and <code class="docutils literal notranslate"><span class="pre">get_phenotype_distribution</span></code> functions. These functions will take a population (a list of genotypes) and return a dictionary representing the distribution of genotypes and phenotypes, respectively.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_genotype_distribution</span></code> function should count the occurrences of each genotype in the population and return a dictionary where the keys are the genotypes and the values are their respective counts.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_phenotype_distribution</span></code> function should first convert each genotype in the population to its corresponding phenotype using the <code class="docutils literal notranslate"><span class="pre">genotype_to_phenotype</span></code> function. Then, it should count the occurrences of each phenotype and return a dictionary where the keys are the phenotypes and the values are their respective counts.</p>
+<div class="admonition-bonus-challenge-optimised-counting admonition">
+<p class="admonition-title">Bonus challenge: Optimised counting</p>
+<p>You can imagine that counting this at the end of each generation would work just fine (and I recommend you start by doing this), but if you want to get really fancy you could also track this information as the generations progress to avoid having to loop through the population again at the end.</p>
+<p>If you get this working, compare the timing of the two approaches for a large population over many generations and celebrate how much faster your fancy approach is!</p>
+</div>
+<p>Here’s some example usage of the functions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AO&quot;</span><span class="p">,</span> <span class="s2">&quot;BO&quot;</span><span class="p">,</span> <span class="s2">&quot;AB&quot;</span><span class="p">,</span> <span class="s2">&quot;OO&quot;</span><span class="p">,</span> <span class="s2">&quot;AO&quot;</span><span class="p">,</span> <span class="s2">&quot;AA&quot;</span><span class="p">]</span>
+
+<span class="n">genotype_dist</span> <span class="o">=</span> <span class="n">get_genotype_distribution</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">genotype_dist</span><span class="p">)</span>  <span class="c1"># Output: {&#39;AO&#39;: 2, &#39;BO&#39;: 1, &#39;AB&#39;: 1, &#39;OO&#39;: 1, &#39;AA&#39;: 1}</span>
+
+<span class="n">phenotype_dist</span> <span class="o">=</span> <span class="n">get_phenotype_distribution</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">phenotype_dist</span><span class="p">)</span>  <span class="c1"># Output: {&#39;A&#39;: 3, &#39;B&#39;: 1, &#39;AB&#39;: 1, &#39;O&#39;: 1}</span>
+</pre></div>
+</div>
+<p>Once you implement this, the code should now start to create plots for you showing how the genotype and phenotype distributions evolve over generations!</p>
+</section>
+<section id="extra-credit-selective-pressure">
+<h2>Extra credit: Selective pressure<a class="headerlink" href="#extra-credit-selective-pressure" title="Link to this heading">#</a></h2>
+<p>As a final challenge, let’s introduce some selective pressure into the population. Let’s say that certain genotypes have a higher death rate than others due to environmental factors or diseases. Modify the <code class="docutils literal notranslate"><span class="pre">next_generation</span></code> function to use the extra parameter <code class="docutils literal notranslate"><span class="pre">extra_death_rates</span></code>, which is a dictionary mapping genotypes to additional death rates (between 0 and 1).</p>
+<p>When determining if an individual dies, in addition to the age-based death rate, check if their genotype is in the <code class="docutils literal notranslate"><span class="pre">extra_death_rates</span></code> dictionary. If it is, add the corresponding extra death rate to the age-based death rate when determining if the individual dies (with a maximum death rate of 1 of course!).</p>
+<p>With this, you can see how quickly the population evolves when certain genotypes are at a disadvantage! This is explored in more detail in the <a class="reference external" href="survival.html">survival</a> problem.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="mutations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">mutations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="survival.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">survival</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-overview">Problem overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-genotype-to-phenotype">Part 1: Genotype to Phenotype</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-simulating-inheritance">Part 2: Simulating inheritance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-generation-simulation">Part 3: Generation simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-no-one-lives-forever">Part 4: No one lives forever</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-distributions">Part 5: Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-selective-pressure">Extra credit: Selective pressure</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tom Wagg
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Tom Wagg.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

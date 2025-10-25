@@ -191,7 +191,34 @@ Now let's have a bit of fun and try to simulate how some examples of external se
 4a - A volcanic eruption
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. figure:: ../../_static/gary_is_smug.png
+    :align: center
+    :width: 400px
 
+    One mouse's disaster is another mouse's opportunity...
+
+.. margin::
+
+    Do not concern yourself with how these mice are reproducing asexually...
+
+Imagine you're observing a cute fuzzy little `rock pocket mouse <https://en.wikipedia.org/wiki/Rock_pocket_mouse#Example_of_natural_selection>`_ that's minding its own business on a hilltop. Mice like this one spend all day trying to sneak around and scavenge some food, all the while trying to evade hawks who swoop down to eat them (oh no!). Most of the mice have a classic tan coloured fur, in fact 90% of the entire population of 10,000 little mice look like this, while the rest have a mutation of their Mc1r allele that gives them a darker fur colour (very stylish).
+
+Let's assume that the evolution follows a Moran Process. Given the environment, the tan-coloured mice are slightly better at reproducing, such that they have a relative fitness of :math:`s = 0.05`. But there's still always a 0.01% chance that a new mouse from a tan-coloured parent mutates into a dark coloured version.
+
+However, after 100 generations, disaster strikes! The hilltop that the clan has called home for all of these generations was actually a sleeping behemoth, a dormant volcano that's awoken with a vengeance! The clan is able to scurry into their burrows and everyone survives the eruption. Yet when they emerge, they find the landscape dramatically changed.
+
+The ground is now covered with dark volcanic rock, and the surviving foliage has a coating of dark ash. All of a sudden, the darker furred mice, have a much easier time hiding from the hawks, and now have way more time to reproduce (groovy baby 😏). Overall, the relative fitness of tan-coloured mice plummets to :math:`s=-0.2`. Our expectation is that the dark furred mice should start to take over now, but how long will it take??
+
+On average, how many generations after the volcano erupts would it take the dark furred mice community to take over the population (i.e. constitute at least 99.9% of the population for 5 consecutive generations)?
+
+.. dropdown:: Answer
+
+    I find that on average its takes :math:`65 \pm 7` generations after the eruption for the dark furred mice to take over the population (those are 1-:math:`\sigma` errorbars). In general, the evolution of the number of dark furred mice looks something like this
+
+    .. figure:: ../../_static/moran_volcano.png
+        :align: center
+
+        The evolution of dark furred mice before and after a volcanic eruption at generation 100.
 
 4b - A budding new food source
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

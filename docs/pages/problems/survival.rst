@@ -129,9 +129,75 @@ Try making a plot of the allele counts over time when you run until fixation. Ho
         A histogram of fixation times over 10,000 simulations with N=100 and initial n_A=50.
 
 
-- Account for mutations
-- Account for fitness
-- Track counts over time
-- Plot counts over time
+Part 2 - Adding mutations
+-------------------------
+
+2a - Implementing mutations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Now that you've got the basic Moran process with genetic drift working, it's time to add mutations into the mix! Mutations allow alleles to change from one type to another, which prevents fixation and maintain genetic diversity in the population.
+
+To add mutations, you'll need to modify the ``next_timestep`` method in your ``MoranModel`` class. When an individual is chosen to reproduce, there's a chance that the offspring will mutate to the other allele type. Specifically:
+
+- If an individual with allele A reproduces, the offspring will mutate to allele a with probability :math:`\mu`.
+- If an individual with allele a reproduces, the offspring will mutate to allele A with probability :math:`\nu`.
+
+
+Here are some examples that I ran for you to compare against. Each has a size of 1000 individuals, starting with 500 A alleles, and running for 1000 generations. The individual panels are annotated with the choice of mutation rates.
+
+.. figure:: ../../_static/moran_mutations.png
+    :align: center
+
+    The effect of mutations on allele frequency dynamics
+
+
+2b - Detecting a steady-state
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You'll have noticed in the plots above (and hopefully in your plots too) that, though the alleles never reach fixation as long as neither of :math:`\mu` or :math:`\nu` are zero, the allele frequency does often reach a steady-state. By this I mean that you can see that the *average* value of the allele counts remains steady, as does the noise (which we can characterise with the standard deviation).
+
+Now let's implement a new method ``run_until_steady_state(max_generations=10000)``. This function should run the process until either a steady-state, fixation, or the maximum number of generations (given by ``max_generations``) is reached.
+
+For conditioning on the steady-state, use the following method. Define two "windows", one for the previous 50 generations, one for the 50 generations before that. Let's define a steady-state as occurring once both
+- the absolute difference between the mean counts in those windows is less than 0.5% of the population size
+- *and* the absolute difference between the standard deviation of the counts in those windows is less than 2% of the population size
+
+Some useful functions for you here are given in numpy (``import numpy as np``). To find the mean of an area, you use ``np.mean``, the standard deviation is given by ``np.std``, and the absolute value of something you can get from ``np.abs``.
+
+Here's some examples of how long it took a few simulations to reach steady-state for me (using the same parameters as the previous section).
+
+.. figure:: ../../_static/moran_mutations_steady_state.png
+    :align: center
+
+    See how different strengths of mutation require different amounts of time to reach a steady-state
+
+Part 3 - Accounting for fitness
+-------------------------------
+
+Now let's add another aspect to our model: the relative fitness of the A allele, which is given by :math:`s`. Your task here is to edit ``next_timestep`` to account for the relative fitness during your sampling. You will need to change the way that you select a random member of the population for reproduction. Now, each :math:`A` allele has a weight of ``(1 + s)`` during sampling, while each :math:`a` allele has a weight of ``1``. This means that when ``s`` is positive, it should be *more* likely that you choose an :math:`A` allele to reproduce.
+
+Here's a grid of example plots, the default parameters (the top left plot) are a population size of ``N = 1000``, with ``n_A = 500``, ``mu = 0.05``, ``nu = 0.05``, ``s = 0.0``. Each panel to the right has increasing values of fitness (``s``) and each row down increases the mutation rate of :math:`A \to a` (``mu``) - these values are annotated on the plots. I ran each of them for 500 generatinons, and as a bonus I added a horizontal line for the mean of the final 100 generations so you can see the general effects of changing these parameters.
+
+.. figure:: ../../_static/moran_selection_grid.png
+    :align: center
+
+    A grid of different mutation rates and relative fitnesses (with ``N = 1000``, ``n_A = 500``, and ``nu = 0.05``).
+
+Part 4 - External pressures
+---------------------------
+
+Now let's have a bit of fun and try to simulate how some examples of external selection pressures that might occur in natural environments could affect our populations!
+
+4a - A volcanic eruption
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+4b - A budding new food source
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+4c - A requirement of balance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 - Inherit class and overwrite ``s`` with a dynamic function
 

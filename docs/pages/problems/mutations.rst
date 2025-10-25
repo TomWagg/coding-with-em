@@ -1,6 +1,8 @@
 mutations
 =========
 
+*Difficulty*: ★★☆☆☆
+
 .. figure:: ../../_static/mutation_breakup.png
     :alt: Two DNA strands breaking up
     :align: center
@@ -65,7 +67,7 @@ Here are some test cases to get you started:
 Part 2: Classify the mutations
 ------------------------------
 
-Now the real question is: what effect do those mutations have on the resulting protein? To answer this, implement ``classify_mutations(reference, mutated)`` which takes in two nucleotide sequences (strings) and returns a list of tuples, where each tuple contains the index of the mutation and its classification ("silent", "missense", or "nonsense").
+Now the real question is: what effect do those mutations have on the resulting protein? To answer this, implement ``classify_point_mutations(reference, mutated)`` which takes in two nucleotide sequences (strings) and returns a list of tuples, where each tuple contains the index of the mutation and its classification ("silent", "missense", or "nonsense").
 
 You can use the genetic code table from the previous problem to determine the amino acids produced by each codon.
 
@@ -87,6 +89,8 @@ Here are some test cases to get you started:
 
 Part 3: (Extra credit) Handle frame-shift mutations
 ---------------------------------------------------
+
+*Difficulty*: ★★★★★ (I mean honestly it's like 7 stars haha)
 
 A much more difficult problem is to handle frame-shift mutations, where nucleotides are inserted or deleted from the sequence. This changes the reading frame of all subsequent codons, which can have a drastic effect on the resulting protein.
 

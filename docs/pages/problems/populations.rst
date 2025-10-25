@@ -1,6 +1,8 @@
 populations
 ===========
 
+*Difficulty*: ★★☆☆☆
+
 In this problem, you'll simulate the growth of a rabbit population over time using loops and conditions.
 
 .. figure:: ../../_static/rabbits.png

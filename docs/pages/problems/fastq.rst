@@ -1,6 +1,8 @@
 fastq
 =====
 
+*Difficulty*: ★★★☆☆
+
 .. figure:: ../../_static/fastq.png
    :align: center
    :width: 500px

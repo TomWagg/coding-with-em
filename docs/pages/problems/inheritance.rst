@@ -1,6 +1,8 @@
 inheritance
 ===========
 
+*Difficulty*: ★★★★☆
+
 .. figure:: ../../_static/inheritance.png
    :align: center
    :width: 500px

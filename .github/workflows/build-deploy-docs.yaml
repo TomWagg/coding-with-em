@@ -54,6 +54,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}   # provided by github actions
           publish_branch: gh-pages                    # will create the branch if missing
           publish_dir: docs/_build/html               # where sphinx wrote the site
-          force: true                                 # overwrite history (keeps branch small)
           keep_files: false                           # clean old files
           enable_jekyll: false                        # drop a .nojekyll for sphinx assets

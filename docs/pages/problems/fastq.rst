@@ -24,6 +24,23 @@ The first line is an ID that uniquely identifies the sequence that it describes.
 
 The quality values are encoded using ASCII characters. To convert a character to its corresponding quality score, you subtract 33 from its ASCII value. For example, the character 'I' has an ASCII value of 73, so its quality score would be 73 - 33 = 40.
 
+Getting the test data
+---------------------
+
+We can actually use real sequencing data to test this! I don't have the fancy Parse data but I do have the data from the 1000 Genomes Project and The International Genome Sample Resource. You can download a sample FASTQ file from `sample HG00152 <https://www.internationalgenome.org/data-portal/sample/HG00152>`_, which is apparently a British male 👀, by running this from the base folder of this repo (ask Tom for help if you need)
+
+.. code-block:: bash
+
+    cd files/
+    wget https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR769/SRR769545/SRR769545_1.fastq.gz
+    gunzip SRR769545_1.fastq.gz
+
+    head -n 40 SRR769545_1.fastq > small.fastq
+    head -n 40000 SRR769545_1.fastq > medium.fastq
+    head -n 400000 SRR769545_1.fastq > large.fastq
+
+This will give you three FASTQ files of varying sizes to test your code with: ``small.fastq``, ``medium.fastq``, and ``large.fastq``. Don't try to open the SRR769545_1.fastq file directly in a text editor, it's huge!!
+
 Testing your code
 -----------------
 

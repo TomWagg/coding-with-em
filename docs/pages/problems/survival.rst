@@ -5,12 +5,17 @@ survival
 
 .. figure:: ../../_static/boardroom_survival.png
     :align: center
+    :width: 500px
 
     Survival of the fittest!
 
 Welcome to the survival problem - where only the fittest survive!
 
 Nah just kidding. In this problem you're going to simulate the spread of a mutation in a population of alleles and track genetic drift and natural selection. Not too tricky right?
+
+.. admonition:: Keep going until the end!
+
+    This one has a lot of parts, but trust me, part 4 will make it all worth it 😁
 
 Concepts
 --------
@@ -213,7 +218,7 @@ On average, how many generations after the volcano erupts would it take the dark
 
 .. dropdown:: Answer
 
-    I find that on average its takes :math:`65 \pm 7` generations after the eruption for the dark furred mice to take over the population (those are 1-:math:`\sigma` errorbars). In general, the evolution of the number of dark furred mice looks something like this
+    I find that on average its takes :math:`65 \pm 7` generations after the eruption for the dark furred mice to take over the population (those are 1-:math:`\sigma` errorbars). In general, the evolution of the number of dark furred mice looks something like the plot below. I ran the simulation 150 times and plotted all of the individual runs in light grey, and most average of the runs in blue. And even though it's super obvious without it, I've added a vertical dashed line to indicate the generation of the volcanic eruption.
 
     .. figure:: ../../_static/moran_volcano.png
         :align: center
@@ -223,8 +228,68 @@ On average, how many generations after the volcano erupts would it take the dark
 4b - A budding new food source
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4c - A requirement of balance
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. figure:: ../../_static/jeff_is_happy.png
+    :align: center
+    :width: 500px
 
-- Inherit class and overwrite ``s`` with a dynamic function
+    Jeff is onto something special here...
 
+Close your eyes and let your imagination transport you to Austrailia and the beautiful Rottnest Island. This island is home to a unique little marsupial called the `quokka <https://en.wikipedia.org/wiki/Quokka>`_. Quokkas are small, herbivorous marsupials about the size of a cat and these little cuties are extremely friendly and curious, often approaching humans without fear.
+
+Nowadays the Quokka's favourite food is reportedly a plant called *Guichenotia ledifolia*. But cast your mind back long ago to when the plant first started growing on the island. Initially, the quokkas had no idea what to make of this strange new plant. Most quokkas that tried to eat it found it inedible and would quickly spit it out. However, one very special quokka (Jeff) had a mutation in his digestive enzymes that allowed him to digest the plant properly. This mutation was very rare, occurring in only 1 out of every 1000 quokkas.
+
+Once Jeff discovered the plant, he found it to be a delicious and highly nutritious food source. Over time, Jeff's health improved significantly, and he became stronger and more energetic than his peers. As a result, Jeff was able to reproduce more successfully, passing on his unique digestive mutation to his offspring. But this advantage was entirely dependent on the abundance of the *Guichenotia ledifolia* plant.
+
+As a result, the relative fitness advantage of Jeff's mutation was closely tied to the availability of this new food source. Once the plant first arrived on the island, it quickly started to spread. This meant that Jeff's mutation became increasingly advantageous over time, as more and more quokkas were able to benefit from the new food source. Therefore instead of the relative fitness being constant, it is actually a function of time such that
+
+.. math::
+
+    s(g) = 0.2 \left( 1 - \exp\left(-\frac{g - g_0}{200}\right) \right),
+
+where :math:`g` is the current generation, and :math:`g_0` is the generation that the plant first arrived on the island (let's say :math:`g_0 = 50`). You can calculate an exponential with numpy's ``np.exp()`` function.
+
+Create a new class (called ``Quokkas`` perhaps?) that inherits from ``MoranModel`` and overwrites the relative fitness ``s`` with a dynamic function of generation number as given above. The other things you need to know is that the population size is 1000 quokkas, starting with just Jeff (so only 1 quokka has the mutation initially), and mutation rates are at :math:`\mu = 10^{-3}` and :math:`\nu = 10^{-3}`.
+
+.. margin::
+
+    You can think of the instant change to a constant fitness as the new plant getting airdropped onto the island fully grown!
+
+Plot out how long it takes Jeff and his descendants to become the alpha quokkas of the island. How does this compare to a simulation where the relative fitness is constant and equal to the maximum value of the function above (i.e. :math:`s = 0.2`)?
+
+.. dropdown:: Answer
+
+    Here's an example plot that I generated comparing the two scenarios. The crimson line shows the evolution of Jeff's quokka clan when the relative fitness increases gradually as the new food source spreads, while the grey line shows the case where the relative fitness jumps instantly to :math:`s = 0.2` at generation 50. You can see that in this case, Jeff's clan takes a bit longer to take over the population compared to the instant change scenario.
+
+    .. figure:: ../../_static/moran_quokka.png
+        :align: center
+
+        The evolution of Jeff's quokka clan with a gradually increasing fitness advantage versus an instant change.
+
+
+4c - The trials of individuality
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../../_static/hipster_worries.png
+    :align: center
+    :width: 500px
+
+    Gotta stay unique!
+
+Finally, consider a population of hipsters, who all pride themselves on doing the opposite of whatever is mainstream. In this population, there are two alleles: :math:`A` (beanie wearing hipsters) and :math:`a` (flannel wearing hipsters). The population size is constant at 500 individuals. At any given moment the relative fitness of the beanie wearing hipsters is literally just zero, funnily enough wearing a beanie doesn't really confer any advantage or disadvantage in life.
+
+However, the hipsters have a unique social dynamic. If too many hipsters start wearing beanies, they feel the need to switch to flannel to maintain their individuality, and vice versa. This means that the mutation rates are not constant, but instead depend on the current frequency of beanie wearing hipsters in the population.
+
+Any time that the fraction of beanie wearing hipsters exceeds 90%, the mutation rate from beanie to flannel increases to 3% (i.e. :math:`\mu = 0.03`), while the mutation rate from flannel to beanie drops to 0% (i.e. :math:`\nu = 0`). Conversely, if the fraction of beanie wearing hipsters drops below 10%, the mutation rate from flannel to beanie increases to 3% (i.e. :math:`\nu = 0.03`), while the mutation rate from beanie to flannel drops to 0% (i.e. :math:`\mu = 0`).
+
+Explore how this model behaves over time. Does the population reach a steady-state? Why or why not?
+
+.. dropdown:: Answer
+
+    Here's an example plot that I generated for this scenario. You can see that the number of beanie wearing hipsters oscillates over time, as the population continually shifts between the two styles to maintain their individuality.
+
+    The system never reaches a steady-state because the mutation rate sharply changes based on the current frequency. If we had instead made it a smooth function of frequency, we might have seen it settle into a steady-state (you could try this as an extra challenge if you like!).
+
+    .. figure:: ../../_static/moran_hipster.png
+        :align: center
+
+        The evolution of beanie wearing hipsters in a population that values individuality.

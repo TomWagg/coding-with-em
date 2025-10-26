@@ -339,7 +339,26 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-assessment">Self-assessment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-basic-evolution-with-drift">Part 1 - Basic Evolution with Drift</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-the-setup">1a - The Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-plotting-your-results">1b - Plotting your results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-running-until-fixation">1c - Running until fixation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-adding-mutations">Part 2 - Adding mutations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-implementing-mutations">2a - Implementing mutations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-detecting-a-steady-state">2b - Detecting a steady-state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-accounting-for-fitness">Part 3 - Accounting for fitness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-external-pressures">Part 4 - External pressures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-a-volcanic-eruption">4a - A volcanic eruption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-a-budding-new-food-source">4b - A budding new food source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-the-trials-of-individuality">4c - The trials of individuality</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -355,13 +374,18 @@ document.write(`
 <h1>survival<a class="headerlink" href="#survival" title="Link to this heading">#</a></h1>
 <p><em>Difficulty</em>: ★★★★☆</p>
 <figure class="align-center" id="id1">
-<img alt="../../_images/boardroom_survival.png" src="../../_images/boardroom_survival.png" />
+<a class="reference internal image-reference" href="../../_images/boardroom_survival.png"><img alt="../../_images/boardroom_survival.png" src="../../_images/boardroom_survival.png" style="width: 500px;" />
+</a>
 <figcaption>
 <p><span class="caption-text">Survival of the fittest!</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Welcome to the survival problem - where only the fittest survive!</p>
 <p>Nah just kidding. In this problem you’re going to simulate the spread of a mutation in a population of alleles and track genetic drift and natural selection. Not too tricky right?</p>
+<div class="admonition-keep-going-until-the-end admonition">
+<p class="admonition-title">Keep going until the end!</p>
+<p>This one has a lot of parts, but trust me, part 4 will make it all worth it 😁</p>
+</div>
 <section id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Link to this heading">#</a></h2>
 <p>For this problem, we’re going to be implementing a Moran process. This is a simple model of genetic drift in a fixed-size population. In this population, individuals can have one of two alleles: <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(a\)</span>.</p>
@@ -386,8 +410,211 @@ document.write(`
 </div>
 </details><p>…or we can just simulate it!</p>
 </section>
+<section id="self-assessment">
+<h2>Self-assessment<a class="headerlink" href="#self-assessment" title="Link to this heading">#</a></h2>
+<p>This problem doesn’t come with its own tests, but throughout the problem I’ve included some example plots of what you might expect the evolution of the system to look like. If your plots look similar to these, then you’re probably on the right track!</p>
+<p>This is of course a stochastic simulation, so your plots won’t look exactly the same as mine, but they should have similar trends.</p>
+<div class="admonition-my-motivation admonition">
+<p class="admonition-title">My motivation</p>
+<p>Note that this isn’t just me being lazy and not writing tests! One of the things you need to learn as a programmer is how to validate your code when there aren’t any tests provided. This is a really important skill to have, especially in scientific programming where you might be implementing new algorithms that don’t have any existing tests.</p>
+<p>So in this problem, I’m encouraging you to think critically about your implementation and how to validate it against expected behaviour and your intuition for how the evolutionary process <em>should</em> behave.</p>
+</div>
+</section>
 <section id="your-task">
 <h2>Your Task<a class="headerlink" href="#your-task" title="Link to this heading">#</a></h2>
+<p>In this problem, you’re going to implement a <strong>class</strong> called <code class="docutils literal notranslate"><span class="pre">MoranModel</span></code> in the <code class="docutils literal notranslate"><span class="pre">problems/survival.py</span></code> file. We’re going to put what you’ve learned about classes, visualisation, and class inheritance to test. Excited? Me too!</p>
+</section>
+<section id="part-1-basic-evolution-with-drift">
+<h2>Part 1 - Basic Evolution with Drift<a class="headerlink" href="#part-1-basic-evolution-with-drift" title="Link to this heading">#</a></h2>
+<section id="a-the-setup">
+<h3>1a - The Setup<a class="headerlink" href="#a-the-setup" title="Link to this heading">#</a></h3>
+<p>First up, implement the basic Moran process with genetic drift only. This means no selection (<span class="math notranslate nohighlight">\(s = 0\)</span>) and no mutations (<span class="math notranslate nohighlight">\(\mu = \nu = 0\)</span>), meaning it’s fine for your class to ignore these parameters for now.</p>
+<p>You’ll need to implement the methods that are already outlined in the <code class="docutils literal notranslate"><span class="pre">MoranModel</span></code> class in <code class="docutils literal notranslate"><span class="pre">problems/survival.py</span></code>.</p>
+<p><strong>Initialisation</strong>: First, consider how to initialise your class (this is done in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method). You’ll need to store the parameters as class attributes certainly, but also consider how you could store the counts of the A alleles over time, that’ll be useful for you to track how things have evolved!</p>
+<p><strong>The core logic</strong>: Next, implement the core logic of the Moran process in the <code class="docutils literal notranslate"><span class="pre">next_timestep</span></code> method. This is where you’ll randomly select one individual to reproduce and one individual to die, and update the counts of each allele accordingly. Since we’re only considering genetic drift for now, the selection of individuals to reproduce and die should be completely random and based only on their current counts (e.g. if there are 7 A alleles and 3 a alleles, the probability of selecting an A allele to reproduce should be 0.7). This method will of course update the number of A/a alleles in the population, but you might also want to consider how to store the counts over time for later analysis.</p>
+<p><strong>Advancing generations</strong>: After that, implement the <code class="docutils literal notranslate"><span class="pre">next_generation</span></code> method, which should call <code class="docutils literal notranslate"><span class="pre">next_timestep</span></code> a number of times equal to the population size to simulate a full generation. This gives each individual a chance to reproduce and die and is a more logical unit of time to track.</p>
+<p><strong>Running the simulation</strong>: Finally, implement the <code class="docutils literal notranslate"><span class="pre">run_for_generations</span></code> method, which should run the simulation for a specified number of generations. This method should call <code class="docutils literal notranslate"><span class="pre">next_generation</span></code> in a loop.</p>
+<div class="admonition-testing-time admonition">
+<p class="admonition-title">Testing time</p>
+<p>Now before you go any further, consider how you can test you implementation so far. If you started with a reasonably small population size (e.g. 100 individuals), what would you expect the allele counts to look like over time? What would you expect to happen after a long period of time? (I’ll give away the answer to this below…)</p>
+</div>
+</section>
+<section id="b-plotting-your-results">
+<h3>1b - Plotting your results<a class="headerlink" href="#b-plotting-your-results" title="Link to this heading">#</a></h3>
+<p>Now that you’ve implemented the basic Moran process with genetic drift, it’s time to visualise your results! Implement the <code class="docutils literal notranslate"><span class="pre">plot</span></code> method in your <code class="docutils literal notranslate"><span class="pre">MoranModel</span></code> class. This method should create a plot showing the counts of allele A as a function of time. I recommend recording the counts at every timestep, but making your x-axis in units of generations for clarity.</p>
+<p>You’ll want to use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for this, and specifically the <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code> function to create the line plot. I recommend using <code class="docutils literal notranslate"><span class="pre">plt.xlim()</span></code> or <code class="docutils literal notranslate"><span class="pre">ax.set_ylim()</span></code> to set your y-limits to always show the full range (0, to the size of the population). And don’t forget to label your axes!!</p>
+<p>Here are three examples of what your plots might look like. Remember, this is a stochastic simulation, so I’ve made these plots with the exact same initial parameters (<span class="math notranslate nohighlight">\(N = 100\)</span>, <span class="math notranslate nohighlight">\(n_A = 50\)</span>, <span class="math notranslate nohighlight">\(s = 0\)</span>, <span class="math notranslate nohighlight">\(\mu = \nu = 0\)</span>), but the plots are still different, and yours may look different compared to these too.</p>
+<figure class="align-center" id="id2">
+<img alt="../../_images/moran_drift.png" src="../../_images/moran_drift.png" />
+<figcaption>
+<p><span class="caption-text">What do you notice happening in some of these plots? We’ll talk about it more in the next section!</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="c-running-until-fixation">
+<h3>1c - Running until fixation<a class="headerlink" href="#c-running-until-fixation" title="Link to this heading">#</a></h3>
+<p>You may have noticed that in some of your plots, the allele counts eventually reach either 0 or the full population size. This is called fixation, and it’s a natural outcome of genetic drift in a finite population. Since there’s no mutation, once one allele reaches fixation, the other allele is lost from the population forever (sad).</p>
+<p>Instead of running for a fixed number of generations, implement a new method called <code class="docutils literal notranslate"><span class="pre">run_until_fixation</span></code> that runs the simulation until one allele reaches fixation. This method should keep calling <code class="docutils literal notranslate"><span class="pre">next_generation</span></code> until the count of allele A is either 0 or equal to the population size.</p>
+<p>Try making a plot of the allele counts over time when you run until fixation. How long does it take for fixation to occur? Does it vary between runs?</p>
+<figure class="align-center" id="id3">
+<img alt="../../_images/moran_drift_fixation.png" src="../../_images/moran_drift_fixation.png" />
+<figcaption>
+<p><span class="caption-text">Notice the different x-axis scales here - and you never know which allele will win!</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Bonus: Distribution of fixation times</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">If you’re feeling adventurous, you could run a large number of simulations (say 10,000) of the Moran process with the same initial parameters and record the time it takes for fixation to occur in each run. You could then plot a histogram of these fixation times to see the distribution. This can give you insight into how genetic drift operates in finite populations.</p>
+<p class="sd-card-text">You could even try changing the initial frequency of allele A and see how that affects the distribution of fixation times - plots galore!</p>
+<figure class="align-center" id="id4">
+<img alt="../../_images/moran_fixation_time_histogram.png" src="../../_images/moran_fixation_time_histogram.png" />
+<figcaption>
+<p><span class="caption-text">A histogram of fixation times over 10,000 simulations with N=100 and initial n_A=50.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</details></section>
+</section>
+<section id="part-2-adding-mutations">
+<h2>Part 2 - Adding mutations<a class="headerlink" href="#part-2-adding-mutations" title="Link to this heading">#</a></h2>
+<section id="a-implementing-mutations">
+<h3>2a - Implementing mutations<a class="headerlink" href="#a-implementing-mutations" title="Link to this heading">#</a></h3>
+<p>Now that you’ve got the basic Moran process with genetic drift working, it’s time to add mutations into the mix! Mutations allow alleles to change from one type to another, which prevents fixation and maintain genetic diversity in the population.</p>
+<p>To add mutations, you’ll need to modify the <code class="docutils literal notranslate"><span class="pre">next_timestep</span></code> method in your <code class="docutils literal notranslate"><span class="pre">MoranModel</span></code> class. When an individual is chosen to reproduce, there’s a chance that the offspring will mutate to the other allele type. Specifically:</p>
+<ul class="simple">
+<li><p>If an individual with allele A reproduces, the offspring will mutate to allele a with probability <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p>If an individual with allele a reproduces, the offspring will mutate to allele A with probability <span class="math notranslate nohighlight">\(\nu\)</span>.</p></li>
+</ul>
+<p>Here are some examples that I ran for you to compare against. Each has a size of 1000 individuals, starting with 500 A alleles, and running for 1000 generations. The individual panels are annotated with the choice of mutation rates.</p>
+<figure class="align-center" id="id5">
+<img alt="../../_images/moran_mutations.png" src="../../_images/moran_mutations.png" />
+<figcaption>
+<p><span class="caption-text">The effect of mutations on allele frequency dynamics</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="b-detecting-a-steady-state">
+<h3>2b - Detecting a steady-state<a class="headerlink" href="#b-detecting-a-steady-state" title="Link to this heading">#</a></h3>
+<p>You’ll have noticed in the plots above (and hopefully in your plots too) that, though the alleles never reach fixation as long as neither of <span class="math notranslate nohighlight">\(\mu\)</span> or <span class="math notranslate nohighlight">\(\nu\)</span> are zero, the allele frequency does often reach a steady-state. By this I mean that you can see that the <em>average</em> value of the allele counts remains steady, as does the noise (which we can characterise with the standard deviation).</p>
+<p>Now let’s implement a new method <code class="docutils literal notranslate"><span class="pre">run_until_steady_state(max_generations=10000)</span></code>. This function should run the process until either a steady-state, fixation, or the maximum number of generations (given by <code class="docutils literal notranslate"><span class="pre">max_generations</span></code>) is reached.</p>
+<p>For conditioning on the steady-state, use the following method. Define two “windows”, one for the previous 50 generations, one for the 50 generations before that. Let’s define a steady-state as occurring once both
+- the absolute difference between the mean counts in those windows is less than 0.5% of the population size
+- <em>and</em> the absolute difference between the standard deviation of the counts in those windows is less than 2% of the population size</p>
+<p>Some useful functions for you here are given in numpy (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>). To find the mean of an area, you use <code class="docutils literal notranslate"><span class="pre">np.mean</span></code>, the standard deviation is given by <code class="docutils literal notranslate"><span class="pre">np.std</span></code>, and the absolute value of something you can get from <code class="docutils literal notranslate"><span class="pre">np.abs</span></code>.</p>
+<p>Here’s some examples of how long it took a few simulations to reach steady-state for me (using the same parameters as the previous section).</p>
+<figure class="align-center" id="id6">
+<img alt="../../_images/moran_mutations_steady_state.png" src="../../_images/moran_mutations_steady_state.png" />
+<figcaption>
+<p><span class="caption-text">See how different strengths of mutation require different amounts of time to reach a steady-state</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="part-3-accounting-for-fitness">
+<h2>Part 3 - Accounting for fitness<a class="headerlink" href="#part-3-accounting-for-fitness" title="Link to this heading">#</a></h2>
+<p>Now let’s add another aspect to our model: the relative fitness of the A allele, which is given by <span class="math notranslate nohighlight">\(s\)</span>. Your task here is to edit <code class="docutils literal notranslate"><span class="pre">next_timestep</span></code> to account for the relative fitness during your sampling. You will need to change the way that you select a random member of the population for reproduction. Now, each <span class="math notranslate nohighlight">\(A\)</span> allele has a weight of <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">+</span> <span class="pre">s)</span></code> during sampling, while each <span class="math notranslate nohighlight">\(a\)</span> allele has a weight of <code class="docutils literal notranslate"><span class="pre">1</span></code>. This means that when <code class="docutils literal notranslate"><span class="pre">s</span></code> is positive, it should be <em>more</em> likely that you choose an <span class="math notranslate nohighlight">\(A\)</span> allele to reproduce.</p>
+<p>Here’s a grid of example plots, the default parameters (the top left plot) are a population size of <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">1000</span></code>, with <code class="docutils literal notranslate"><span class="pre">n_A</span> <span class="pre">=</span> <span class="pre">500</span></code>, <code class="docutils literal notranslate"><span class="pre">mu</span> <span class="pre">=</span> <span class="pre">0.05</span></code>, <code class="docutils literal notranslate"><span class="pre">nu</span> <span class="pre">=</span> <span class="pre">0.05</span></code>, <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">0.0</span></code>. Each panel to the right has increasing values of fitness (<code class="docutils literal notranslate"><span class="pre">s</span></code>) and each row down increases the mutation rate of <span class="math notranslate nohighlight">\(A \to a\)</span> (<code class="docutils literal notranslate"><span class="pre">mu</span></code>) - these values are annotated on the plots. I ran each of them for 500 generatinons, and as a bonus I added a horizontal line for the mean of the final 100 generations so you can see the general effects of changing these parameters.</p>
+<figure class="align-center" id="id7">
+<img alt="../../_images/moran_selection_grid.png" src="../../_images/moran_selection_grid.png" />
+<figcaption>
+<p><span class="caption-text">A grid of different mutation rates and relative fitnesses (with <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">1000</span></code>, <code class="docutils literal notranslate"><span class="pre">n_A</span> <span class="pre">=</span> <span class="pre">500</span></code>, and <code class="docutils literal notranslate"><span class="pre">nu</span> <span class="pre">=</span> <span class="pre">0.05</span></code>).</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="part-4-external-pressures">
+<h2>Part 4 - External pressures<a class="headerlink" href="#part-4-external-pressures" title="Link to this heading">#</a></h2>
+<p>Now let’s have a bit of fun and try to simulate how some examples of external selection pressures that might occur in natural environments could affect our populations!</p>
+<section id="a-a-volcanic-eruption">
+<h3>4a - A volcanic eruption<a class="headerlink" href="#a-a-volcanic-eruption" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="../../_images/gary_is_smug.png"><img alt="../../_images/gary_is_smug.png" src="../../_images/gary_is_smug.png" style="width: 400px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">One mouse’s disaster is another mouse’s opportunity…</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Do not concern yourself with how these mice are reproducing asexually…</p>
+</aside>
+<p>Imagine you’re observing a cute fuzzy little <a class="reference external" href="https://en.wikipedia.org/wiki/Rock_pocket_mouse#Example_of_natural_selection">rock pocket mouse</a> that’s minding its own business on a hilltop. Mice like this one spend all day trying to sneak around and scavenge some food, all the while trying to evade hawks who swoop down to eat them (oh no!). Most of the mice have a classic tan coloured fur, in fact 90% of the entire population of 10,000 little mice look like this, while the rest have a mutation of their Mc1r allele that gives them a darker fur colour (very stylish).</p>
+<p>Let’s assume that the evolution follows a Moran Process. Given the environment, the tan-coloured mice are slightly better at reproducing, such that they have a relative fitness of <span class="math notranslate nohighlight">\(s = 0.05\)</span>. But there’s still always a 0.01% chance that a new mouse from a tan-coloured parent mutates into a dark coloured version.</p>
+<p>However, after 100 generations, disaster strikes! The hilltop that the clan has called home for all of these generations was actually a sleeping behemoth, a dormant volcano that’s awoken with a vengeance! The clan is able to scurry into their burrows and everyone survives the eruption. Yet when they emerge, they find the landscape dramatically changed.</p>
+<p>The ground is now covered with dark volcanic rock, and the surviving foliage has a coating of dark ash. All of a sudden, the darker furred mice, have a much easier time hiding from the hawks, and now have way more time to reproduce (groovy baby 😏). Overall, the relative fitness of tan-coloured mice plummets to <span class="math notranslate nohighlight">\(s=-0.2\)</span>. Our expectation is that the dark furred mice should start to take over now, but how long will it take??</p>
+<p>On average, how many generations after the volcano erupts would it take the dark furred mice community to take over the population (i.e. constitute at least 99.9% of the population for 5 consecutive generations)?</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Answer</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">I find that on average its takes <span class="math notranslate nohighlight">\(65 \pm 7\)</span> generations after the eruption for the dark furred mice to take over the population (those are 1-<span class="math notranslate nohighlight">\(\sigma\)</span> errorbars). In general, the evolution of the number of dark furred mice looks something like the plot below. I ran the simulation 150 times and plotted all of the individual runs in light grey, and most average of the runs in blue. And even though it’s super obvious without it, I’ve added a vertical dashed line to indicate the generation of the volcanic eruption.</p>
+<figure class="align-center" id="id9">
+<img alt="../../_images/moran_volcano.png" src="../../_images/moran_volcano.png" />
+<figcaption>
+<p><span class="caption-text">The evolution of dark furred mice before and after a volcanic eruption at generation 100.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</details></section>
+<section id="b-a-budding-new-food-source">
+<h3>4b - A budding new food source<a class="headerlink" href="#b-a-budding-new-food-source" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id10">
+<a class="reference internal image-reference" href="../../_images/jeff_is_happy.png"><img alt="../../_images/jeff_is_happy.png" src="../../_images/jeff_is_happy.png" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Jeff is onto something special here…</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Close your eyes and let your imagination transport you to Austrailia and the beautiful Rottnest Island. This island is home to a unique little marsupial called the <a class="reference external" href="https://en.wikipedia.org/wiki/Quokka">quokka</a>. Quokkas are small, herbivorous marsupials about the size of a cat and these little cuties are extremely friendly and curious, often approaching humans without fear.</p>
+<p>Nowadays the Quokka’s favourite food is reportedly a plant called <em>Guichenotia ledifolia</em>. But cast your mind back long ago to when the plant first started growing on the island. Initially, the quokkas had no idea what to make of this strange new plant. Most quokkas that tried to eat it found it inedible and would quickly spit it out. However, one very special quokka (Jeff) had a mutation in his digestive enzymes that allowed him to digest the plant properly. This mutation was very rare, occurring in only 1 out of every 1000 quokkas.</p>
+<p>Once Jeff discovered the plant, he found it to be a delicious and highly nutritious food source. Over time, Jeff’s health improved significantly, and he became stronger and more energetic than his peers. As a result, Jeff was able to reproduce more successfully, passing on his unique digestive mutation to his offspring. But this advantage was entirely dependent on the abundance of the <em>Guichenotia ledifolia</em> plant.</p>
+<p>As a result, the relative fitness advantage of Jeff’s mutation was closely tied to the availability of this new food source. Once the plant first arrived on the island, it quickly started to spread. This meant that Jeff’s mutation became increasingly advantageous over time, as more and more quokkas were able to benefit from the new food source. Therefore instead of the relative fitness being constant, it is actually a function of time such that</p>
+<div class="math notranslate nohighlight">
+\[s(g) = 0.2 \left( 1 - \exp\left(-\frac{g - g_0}{200}\right) \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(g\)</span> is the current generation, and <span class="math notranslate nohighlight">\(g_0\)</span> is the generation that the plant first arrived on the island (let’s say <span class="math notranslate nohighlight">\(g_0 = 50\)</span>). You can calculate an exponential with numpy’s <code class="docutils literal notranslate"><span class="pre">np.exp()</span></code> function.</p>
+<p>Create a new class (called <code class="docutils literal notranslate"><span class="pre">Quokkas</span></code> perhaps?) that inherits from <code class="docutils literal notranslate"><span class="pre">MoranModel</span></code> and overwrites the relative fitness <code class="docutils literal notranslate"><span class="pre">s</span></code> with a dynamic function of generation number as given above. The other things you need to know is that the population size is 1000 quokkas, starting with just Jeff (so only 1 quokka has the mutation initially), and mutation rates are at <span class="math notranslate nohighlight">\(\mu = 10^{-3}\)</span> and <span class="math notranslate nohighlight">\(\nu = 10^{-3}\)</span>.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>You can think of the instant change to a constant fitness as the new plant getting airdropped onto the island fully grown!</p>
+</aside>
+<p>Plot out how long it takes Jeff and his descendants to become the alpha quokkas of the island. How does this compare to a simulation where the relative fitness is constant and equal to the maximum value of the function above (i.e. <span class="math notranslate nohighlight">\(s = 0.2\)</span>)?</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Answer</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Here’s an example plot that I generated comparing the two scenarios. The crimson line shows the evolution of Jeff’s quokka clan when the relative fitness increases gradually as the new food source spreads, while the grey line shows the case where the relative fitness jumps instantly to <span class="math notranslate nohighlight">\(s = 0.2\)</span> at generation 50. You can see that in this case, Jeff’s clan takes a bit longer to take over the population compared to the instant change scenario.</p>
+<figure class="align-center" id="id11">
+<img alt="../../_images/moran_quokka.png" src="../../_images/moran_quokka.png" />
+<figcaption>
+<p><span class="caption-text">The evolution of Jeff’s quokka clan with a gradually increasing fitness advantage versus an instant change.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</details></section>
+<section id="c-the-trials-of-individuality">
+<h3>4c - The trials of individuality<a class="headerlink" href="#c-the-trials-of-individuality" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id12">
+<a class="reference internal image-reference" href="../../_images/hipster_worries.png"><img alt="../../_images/hipster_worries.png" src="../../_images/hipster_worries.png" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Gotta stay unique!</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Finally, consider a population of hipsters, who all pride themselves on doing the opposite of whatever is mainstream. In this population, there are two alleles: <span class="math notranslate nohighlight">\(A\)</span> (beanie wearing hipsters) and <span class="math notranslate nohighlight">\(a\)</span> (flannel wearing hipsters). The population size is constant at 500 individuals. At any given moment the relative fitness of the beanie wearing hipsters is literally just zero, funnily enough wearing a beanie doesn’t really confer any advantage or disadvantage in life.</p>
+<p>However, the hipsters have a unique social dynamic. If too many hipsters start wearing beanies, they feel the need to switch to flannel to maintain their individuality, and vice versa. This means that the mutation rates are not constant, but instead depend on the current frequency of beanie wearing hipsters in the population.</p>
+<p>Any time that the fraction of beanie wearing hipsters exceeds 90%, the mutation rate from beanie to flannel increases to 3% (i.e. <span class="math notranslate nohighlight">\(\mu = 0.03\)</span>), while the mutation rate from flannel to beanie drops to 0% (i.e. <span class="math notranslate nohighlight">\(\nu = 0\)</span>). Conversely, if the fraction of beanie wearing hipsters drops below 10%, the mutation rate from flannel to beanie increases to 3% (i.e. <span class="math notranslate nohighlight">\(\nu = 0.03\)</span>), while the mutation rate from beanie to flannel drops to 0% (i.e. <span class="math notranslate nohighlight">\(\mu = 0\)</span>).</p>
+<p>Explore how this model behaves over time. Does the population reach a steady-state? Why or why not?</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Answer</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Here’s an example plot that I generated for this scenario. You can see that the number of beanie wearing hipsters oscillates over time, as the population continually shifts between the two styles to maintain their individuality.</p>
+<p class="sd-card-text">The system never reaches a steady-state because the mutation rate sharply changes based on the current frequency. If we had instead made it a smooth function of frequency, we might have seen it settle into a steady-state (you could try this as an extra challenge if you like!).</p>
+<figure class="align-center" id="id13">
+<img alt="../../_images/moran_hipster.png" src="../../_images/moran_hipster.png" />
+<figcaption>
+<p><span class="caption-text">The evolution of beanie wearing hipsters in a population that values individuality.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</details></section>
 </section>
 </section>
 
@@ -437,7 +664,26 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-assessment">Self-assessment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-basic-evolution-with-drift">Part 1 - Basic Evolution with Drift</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-the-setup">1a - The Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-plotting-your-results">1b - Plotting your results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-running-until-fixation">1c - Running until fixation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-adding-mutations">Part 2 - Adding mutations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-implementing-mutations">2a - Implementing mutations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-detecting-a-steady-state">2b - Detecting a steady-state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-accounting-for-fitness">Part 3 - Accounting for fitness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-external-pressures">Part 4 - External pressures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-a-volcanic-eruption">4a - A volcanic eruption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-a-budding-new-food-source">4b - A budding new food source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-the-trials-of-individuality">4c - The trials of individuality</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

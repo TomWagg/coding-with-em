@@ -314,7 +314,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -330,6 +332,18 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-test-data">Getting the test data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-code">Testing your code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-writing-a-file-parser">Part 1: Writing a file parser</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-a-question-of-quality">Part 2: A question of quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-protein-confusion">Part 3: Protein confusion</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -343,15 +357,90 @@ document.write(`
 <h1>fastq<a class="headerlink" href="#fastq" title="Link to this heading">#</a></h1>
 <p><em>Difficulty</em>: ★★★☆☆</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../../_images/fastq.png"><img alt="../../_images/fastq.png" src="../../_images/fastq.png" style="width: 500px;" />
+<a class="reference internal image-reference" href="../../_images/fastq.png"><img alt="../../_images/fastq.png" src="../../_images/fastq.png" style="width: 600px;" />
 </a>
 <figcaption>
-<p><span class="caption-text">That queue towards the sequencing machine certainly looks fast - I wonder what we could call it?</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-text">That line is certainly move towards the sequencing machine quickly…</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Read a fastq file!</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/FASTQ_format">https://en.wikipedia.org/wiki/FASTQ_format</a></p>
-<p>Find all the gattaca sequences</p>
+<p>In this problem we’re going to think about interacting with files with Python. Since genome data is often stored in FASTQ format, we’ll use a FASTQ file for this exercise.</p>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ format</a> is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Each sequence in a FASTQ file is represented by four lines that look like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>@SEQ_ID
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
++
+!&#39;&#39;*((((***+))%%%++)(%%%%).1***-+*&#39;&#39;))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65
+</pre></div>
+</div>
+<p>The first line is an ID that uniquely identifies the sequence that it describes. The second line is the raw sequence letters. The third line is a separator (often just a plus sign). The fourth line encodes the quality scores for the sequence in line 2, with each character representing the quality of the corresponding base in the sequence.</p>
+<p>The quality values are encoded using ASCII characters. To convert a character to its corresponding quality score, you subtract 33 from its ASCII value. For example, the character ‘I’ has an ASCII value of 73, so its quality score would be 73 - 33 = 40.</p>
+<section id="getting-the-test-data">
+<h2>Getting the test data<a class="headerlink" href="#getting-the-test-data" title="Link to this heading">#</a></h2>
+<p>We can actually use real sequencing data to test this! I don’t have the fancy Parse data but I do have the data from the 1000 Genomes Project and The International Genome Sample Resource. You can download a sample FASTQ file from <a class="reference external" href="https://www.internationalgenome.org/data-portal/sample/HG00152">sample HG00152</a>, which is apparently a British male 👀, by running this from the base folder of this repo (ask Tom for help if you need)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>files/
+wget<span class="w"> </span>https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR769/SRR769545/SRR769545_1.fastq.gz
+gunzip<span class="w"> </span>SRR769545_1.fastq.gz
+
+head<span class="w"> </span>-n<span class="w"> </span><span class="m">40</span><span class="w"> </span>SRR769545_1.fastq<span class="w"> </span>&gt;<span class="w"> </span>small.fastq
+head<span class="w"> </span>-n<span class="w"> </span><span class="m">40000</span><span class="w"> </span>SRR769545_1.fastq<span class="w"> </span>&gt;<span class="w"> </span>medium.fastq
+head<span class="w"> </span>-n<span class="w"> </span><span class="m">400000</span><span class="w"> </span>SRR769545_1.fastq<span class="w"> </span>&gt;<span class="w"> </span>large.fastq
+</pre></div>
+</div>
+<p>This will give you three FASTQ files of varying sizes to test your code with: <code class="docutils literal notranslate"><span class="pre">small.fastq</span></code>, <code class="docutils literal notranslate"><span class="pre">medium.fastq</span></code>, and <code class="docutils literal notranslate"><span class="pre">large.fastq</span></code>. Don’t try to open the SRR769545_1.fastq file directly in a text editor, it’s huge!!</p>
+</section>
+<section id="testing-your-code">
+<h2>Testing your code<a class="headerlink" href="#testing-your-code" title="Link to this heading">#</a></h2>
+<p>You can test your code by running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">problems/fastq.py</span></code> from the root of the repository. This will run a few tests on your code to make sure it is working as expected.</p>
+</section>
+<section id="part-1-writing-a-file-parser">
+<h2>Part 1: Writing a file parser<a class="headerlink" href="#part-1-writing-a-file-parser" title="Link to this heading">#</a></h2>
+<p>The first thing we need to do is write a function that can parse a FASTQ file and convert its contents into a more manageable data structure. Specifically, we want to convert the FASTQ file into a list of dictionaries, where each dictionary represents a single sequence entry with the following keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: The sequence identifier (from line 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sequence</span></code>: The raw sequence letters (from line 2)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quality</span></code>: A list of quality scores (from line 4, converted to integers)</p></li>
+</ul>
+<p>With this in mind, implement the function <code class="docutils literal notranslate"><span class="pre">parse_fastq(file_path)</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/fastq.py</span></code> that takes the path to a FASTQ file as input and returns the list of dictionaries as described above. If no file is found at the given path, the function should raise a <code class="docutils literal notranslate"><span class="pre">FileNotFoundError</span></code> and explain to the user that the file could not be found.</p>
+<p>Here’s an example of how the output should look for a FASTQ file with a single entry:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">parse_fastq</span><span class="p">(</span><span class="s1">&#39;example.fastq&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># output looks like this:</span>
+<span class="c1"># [</span>
+<span class="c1">#     {</span>
+<span class="c1">#         &#39;id&#39;: &#39;SEQ_ID&#39;,</span>
+<span class="c1">#         &#39;sequence&#39;: &#39;GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT&#39;,</span>
+<span class="c1">#         &#39;quality&#39;: [40, 39, 38, 37, ...]  # list of quality scores as integers</span>
+<span class="c1">#     }</span>
+<span class="c1"># ]</span>
+</pre></div>
+</div>
+</section>
+<section id="part-2-a-question-of-quality">
+<h2>Part 2: A question of quality<a class="headerlink" href="#part-2-a-question-of-quality" title="Link to this heading">#</a></h2>
+<p>Since these nice sequencer people are going to all of the trouble of reporting quality scores for each base in the sequence, we should probably make use of that information. Implement the function <code class="docutils literal notranslate"><span class="pre">filter_by_quality(data,</span> <span class="pre">threshold)</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/fastq.py</span></code> that takes two arguments:
+- <code class="docutils literal notranslate"><span class="pre">data</span></code>: The list of dictionaries returned by <code class="docutils literal notranslate"><span class="pre">parse_fastq</span></code>
+- <code class="docutils literal notranslate"><span class="pre">threshold</span></code>: An integer quality score threshold</p>
+<p>The function should return a new list of dictionaries that only includes those sequences where every base in the sequence has a quality score greater than or equal to the given threshold.</p>
+</section>
+<section id="part-3-protein-confusion">
+<h2>Part 3: Protein confusion<a class="headerlink" href="#part-3-protein-confusion" title="Link to this heading">#</a></h2>
+<p>This method of filtering will of course get rid of any particularly aggregious sequences, but you can imagine scenarios where the average quality of a sequence is high, but there are still a few low-quality bases scattered throughout.</p>
+<p>Let’s think about how this might change what proteins we predict from these sequences. Luckily, in an earlier problem we already wrote a function <code class="docutils literal notranslate"><span class="pre">find_proteins(sequence)</span></code> that can find all of the proteins encoded by a given DNA sequence so that bit’s easy. Now, let’s make a dramatic assumption that for some reason “C” nucleotides are always hard to read, so if we find a low quality score (below some threshold) at a position in the sequence, it’s possible we should have read a “C” there instead.</p>
+<p>Implement the function <code class="docutils literal notranslate"><span class="pre">protein_variations(data,</span> <span class="pre">average_threshold,</span> <span class="pre">point_threshold)</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/fastq.py</span></code> that takes three:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: The list of dictionaries returned by <code class="docutils literal notranslate"><span class="pre">parse_fastq</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">average_threshold</span></code>: An integer quality score threshold for average quality</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">point_threshold</span></code>: An integer quality score threshold for individual bases</p></li>
+</ul>
+<p>First, the function uses <code class="docutils literal notranslate"><span class="pre">filter_by_quality</span></code> to filter the sequences by average quality using <code class="docutils literal notranslate"><span class="pre">average_threshold</span></code>. Then, for each remaining sequence, use <code class="docutils literal notranslate"><span class="pre">find_proteins</span></code> to predict the protein content of the sequence as-is. Next, for each base in the sequence that has a quality score below <code class="docutils literal notranslate"><span class="pre">point_threshold</span></code>, create a modified version of the sequence where that base is changed to “C” (if it isn’t already “C”), and use <code class="docutils literal notranslate"><span class="pre">find_proteins</span></code> to predict the protein content of this modified sequence.</p>
+<p>Three things could happen here: either the modified sequence will produce <em>identical</em> proteins, the same <em>number</em> of proteins, or it will produce a <em>different</em> number of proteins (because a start/end codon got created or destroyed). Because of this you should track two different things:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">diff_count_seqs</span></code>: A list of tuples, where each tuple contains the sequence ID, the original number of proteins, and the modified number of proteins</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">same_count_seqs</span></code>: A list of tuples, where each tuple contains the sequence ID and a list where each element is the number of amino acids that are different in each protein in the modified sequence compared to the original sequence</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">high_quality_sequences</span></code>: A list of sequence IDs that produce identical proteins even after modification</p></li>
+</ul>
+<p>If there’s a different number of proteins, update <code class="docutils literal notranslate"><span class="pre">diff_count_seqs</span></code>. If there’s the same number of proteins, compare each protein in the modified sequence to the corresponding protein in the original sequence and count how many amino acids are different. If there are any differences, update <code class="docutils literal notranslate"><span class="pre">same_count_seqs</span></code>. If there are no differences at all, add the sequence ID to <code class="docutils literal notranslate"><span class="pre">high_quality_sequences</span></code>.</p>
+</section>
 </section>
 
 
@@ -389,6 +478,25 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-test-data">Getting the test data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-code">Testing your code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-writing-a-file-parser">Part 1: Writing a file parser</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-a-question-of-quality">Part 2: A question of quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-protein-confusion">Part 3: Protein confusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

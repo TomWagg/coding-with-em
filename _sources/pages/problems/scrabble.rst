@@ -1,6 +1,11 @@
 scrabble
 ========
 
+.. figure:: ../../_static/scrabble.png
+    :align: center
+
+    Counting *and* spelling, oh my!
+
 *Difficulty*: ★★★★★
 
 - Score scrabble words

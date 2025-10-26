@@ -46,6 +46,7 @@
     <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'pages/problems/scrabble';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -313,7 +314,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -329,6 +332,19 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-code">Testing your code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-scoring-words">Part 1: Scoring words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-finding-the-best-word">Part 2: Finding the best word</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-handling-blanks">Part 3: Handling blanks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-spellcheck">Part 4: Spellcheck</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-a-need-for-speed">Part 5: A need for speed</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -340,23 +356,75 @@ document.write(`
                   
   <section id="scrabble">
 <h1>scrabble<a class="headerlink" href="#scrabble" title="Link to this heading">#</a></h1>
+<p><em>Difficulty</em>: ★★★★★</p>
 <figure class="align-center" id="id1">
 <img alt="../../_images/scrabble.png" src="../../_images/scrabble.png" />
 <figcaption>
 <p><span class="caption-text">Counting <em>and</em> spelling, oh my!</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p><em>Difficulty</em>: ★★★★★</p>
+<p>Let’s take a break from genetics for a moment and think about Scrabble instead! In this problem we’re going to write some code that scores potential Scrabble words.</p>
+<section id="testing-your-code">
+<h2>Testing your code<a class="headerlink" href="#testing-your-code" title="Link to this heading">#</a></h2>
+<p>You can test your code by running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">problems/scrabble.py</span></code> from the root of the repository. This will run a few tests on your code to make sure it is working as expected.</p>
+</section>
+<section id="part-1-scoring-words">
+<h2>Part 1: Scoring words<a class="headerlink" href="#part-1-scoring-words" title="Link to this heading">#</a></h2>
+<p>The first thing we need to do is write a function that can score Scrabble words. We’re not going to worry about board position or anything fancy like that, just the raw score of the word based on the letter values. Implement the function <code class="docutils literal notranslate"><span class="pre">score_word(word)</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/scrabble.py</span></code> that takes a single word as input and returns its Scrabble score as an integer.</p>
+<p>I’ve included a dictionary called <code class="docutils literal notranslate"><span class="pre">LETTER_SCORES</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/scrabble.py</span></code> that maps each letter to its corresponding Scrabble score. You can use this dictionary to look up the score for each letter.</p>
+</section>
+<section id="part-2-finding-the-best-word">
+<h2>Part 2: Finding the best word<a class="headerlink" href="#part-2-finding-the-best-word" title="Link to this heading">#</a></h2>
+<p>Now that we can score individual words, let’s write a function that can find the highest scoring word given a list of 7 letters (our Scrabble rack). Implement the function <code class="docutils literal notranslate"><span class="pre">best_word(letters,</span> <span class="pre">word_file)</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/scrabble.py</span></code> that takes two arguments:</p>
 <ul class="simple">
-<li><p>Score scrabble words</p></li>
-<li><dl class="simple">
-<dt>Identify if words are actually spelt correctly</dt><dd><ul>
-<li><p>But do it quickly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">letters</span></code>: A string of 7 letters representing the player’s Scrabble rack</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">word_file</span></code>: The path to a text file containing a list of valid words (one word per line)</p></li>
 </ul>
-</dd>
-</dl>
-</li>
+<p>The function should return a tuple containing the highest scoring word that can be formed with the given letters and its score. If no valid words can be formed, the function should return <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">0)</span></code>.</p>
+<p>If multiple words have the same highest score, return the one that comes first alphabetically.</p>
+</section>
+<section id="part-3-handling-blanks">
+<h2>Part 3: Handling blanks<a class="headerlink" href="#part-3-handling-blanks" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>One of the rare occasions where “drawing a blank” is a good thing!</p>
+</aside>
+<p>In Scrabble, players can also have blank tiles that can represent any letter but have no point value. Let’s modify our <code class="docutils literal notranslate"><span class="pre">best_word</span></code> function to handle blank tiles. Update the function so that it can accept a string of 7 characters where some of the characters may be underscores (‘_’) representing blank tiles.</p>
+</section>
+<section id="part-4-spellcheck">
+<h2>Part 4: Spellcheck<a class="headerlink" href="#part-4-spellcheck" title="Link to this heading">#</a></h2>
+<p><em>Disclaimer: This part and the next are directly inspired by CS50’s “speller” problem set.</em></p>
+<figure class="align-center" id="id2">
+<img alt="../../_images/bill_cheats.png" src="../../_images/bill_cheats.png" />
+<figcaption>
+<p><span class="caption-text">Shakespeare often struggled with the concept of following a word list…</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s consider a different scenario. Someone provides you with a long text (e.g. the full works of Shakespeare) and they want to know how well it would perform in Scrabble. Write a function <code class="docutils literal notranslate"><span class="pre">scrabble_score_text(text_file,</span> <span class="pre">word_file)</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/scrabble.py</span></code> that takes two arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">text_file</span></code>: The path to a text file containing the text to be analyzed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">word_file</span></code>: The path to a text file containing a list of valid words (one word per line)</p></li>
 </ul>
+<p>The function should read the text file, extract all the words (remove blank lines, split by spaces), and calculate the total Scrabble score for all valid words found in the text. For any word that is not found in the valid words list, subtract 5 points from the total score as a penalty for misspelling. The function should return the total Scrabble score as an integer.</p>
+</section>
+<section id="part-5-a-need-for-speed">
+<h2>Part 5: A need for speed<a class="headerlink" href="#part-5-a-need-for-speed" title="Link to this heading">#</a></h2>
+<p>We all know the importance of acting quickly in a game of Scrabble. Given that we might be working with very large texts and dictionaries, we need to make sure our code is efficient. If you implemented the last part via brute force, this will have required searching through the full word list for every single word in the text, which has a time complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(n*m)\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the number of words in the text and <span class="math notranslate nohighlight">\(m\)</span> is the number of words in the dictionary.</p>
+<p>Your task is now to make your code as fast as possible, with the best time complexity you can manage. This will require you to think a bit more about data structures and algorithms.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Hint for <span class="math notranslate nohighlight">\(\mathcal{O}(n \log m)\)</span></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Since the word list is sorted already, you could implement a binary search algorithm to check for word existence. This would reduce the time complexity of checking each word from <span class="math notranslate nohighlight">\(\mathcal{O}(m)\)</span> to <span class="math notranslate nohighlight">\(\mathcal{O}(\log m)\)</span>, resulting in an overall time complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(n \log m)\)</span> for the entire text.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Bigger hint for <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A hash map (or dictionary in Python) allows for average-case constant time complexity <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span> for lookups. By storing the valid words in a hash map, you can check for the existence of each word in the text in constant time, leading to an overall time complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> for the entire text.</p>
+<p class="sd-card-text">It’s up to you to decide how to hash your words, keeping in mind that I’ll be timing both the loading of the word list and the scoring of the text.</p>
+<p class="sd-card-text">Note if you have many hash collisions, your performance may degrade towards <span class="math notranslate nohighlight">\(\mathcal{O}(n*m)\)</span>, so choose your hashing strategy wisely! You could use a binary search within each hash bucket to mitigate this perhaps?</p>
+<p class="sd-card-text">Good luck!</p>
+</div>
+</details></section>
 </section>
 
 
@@ -385,6 +453,26 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-code">Testing your code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-scoring-words">Part 1: Scoring words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-finding-the-best-word">Part 2: Finding the best word</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-handling-blanks">Part 3: Handling blanks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-spellcheck">Part 4: Spellcheck</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-a-need-for-speed">Part 5: A need for speed</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

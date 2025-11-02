@@ -20,7 +20,7 @@ Part 1: Scoring words
 
 The first thing we need to do is write a function that can score Scrabble words. We're not going to worry about board position or anything fancy like that, just the raw score of the word based on the letter values. Implement the function ``score_word(word)`` in ``problems/scrabble.py`` that takes a single word as input and returns its Scrabble score as an integer.
 
-I've included a dictionary called ``LETTER_SCORES`` in ``problems/scrabble.py`` that maps each letter to its corresponding Scrabble score. You can use this dictionary to look up the score for each letter.
+I've included a Python dictionary called ``LETTER_SCORES`` in ``problems/scrabble.py`` that maps each letter to its corresponding Scrabble score. You can use this dictionary to look up the score for each letter.
 
 Part 2: Finding the best word
 -----------------------------
@@ -30,7 +30,7 @@ Now that we can score individual words, let's write a function that can find the
 - ``letters``: A string of 7 letters representing the player's Scrabble rack
 - ``word_file``: The path to a text file containing a list of valid words (one word per line)
 
-The function should return a tuple containing the highest scoring word that can be formed with the given letters and its score. If no valid words can be formed, the function should return ``(None, 0)``.
+The function should return a tuple containing the highest scoring word that can be formed with the given letters and its score. If no valid words can be formed, the function should return ``('', 0)``.
 
 If multiple words have the same highest score, return the one that comes first alphabetically.
 
@@ -58,7 +58,16 @@ Let's consider a different scenario. Someone provides you with a long text (e.g.
 - ``text_file``: The path to a text file containing the text to be analyzed
 - ``word_file``: The path to a text file containing a list of valid words (one word per line)
 
-The function should read the text file, extract all the words (remove blank lines, split by spaces), and calculate the total Scrabble score for all valid words found in the text. For any word that is not found in the valid words list, subtract 5 points from the total score as a penalty for misspelling. The function should return the total Scrabble score as an integer.
+This function needs to do a couple of things:
+
+- Read the list of valid words from ``word_file`` and store them in a list
+- Read the text from ``text_file``, splitting words up by whitespace and newlines
+- For each word in the text
+    - Loop through the valid words and try to find it
+        - If the word is found, add its Scrabble score to a running total
+        - If the word is not found, subtract 5 points from the total as a penalty for misspelling
+
+The function should return the total Scrabble score as an integer.
 
 Part 5: A need for speed
 ------------------------

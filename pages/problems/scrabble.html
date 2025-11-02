@@ -371,7 +371,7 @@ document.write(`
 <section id="part-1-scoring-words">
 <h2>Part 1: Scoring words<a class="headerlink" href="#part-1-scoring-words" title="Link to this heading">#</a></h2>
 <p>The first thing we need to do is write a function that can score Scrabble words. We’re not going to worry about board position or anything fancy like that, just the raw score of the word based on the letter values. Implement the function <code class="docutils literal notranslate"><span class="pre">score_word(word)</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/scrabble.py</span></code> that takes a single word as input and returns its Scrabble score as an integer.</p>
-<p>I’ve included a dictionary called <code class="docutils literal notranslate"><span class="pre">LETTER_SCORES</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/scrabble.py</span></code> that maps each letter to its corresponding Scrabble score. You can use this dictionary to look up the score for each letter.</p>
+<p>I’ve included a Python dictionary called <code class="docutils literal notranslate"><span class="pre">LETTER_SCORES</span></code> in <code class="docutils literal notranslate"><span class="pre">problems/scrabble.py</span></code> that maps each letter to its corresponding Scrabble score. You can use this dictionary to look up the score for each letter.</p>
 </section>
 <section id="part-2-finding-the-best-word">
 <h2>Part 2: Finding the best word<a class="headerlink" href="#part-2-finding-the-best-word" title="Link to this heading">#</a></h2>
@@ -380,7 +380,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">letters</span></code>: A string of 7 letters representing the player’s Scrabble rack</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">word_file</span></code>: The path to a text file containing a list of valid words (one word per line)</p></li>
 </ul>
-<p>The function should return a tuple containing the highest scoring word that can be formed with the given letters and its score. If no valid words can be formed, the function should return <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">0)</span></code>.</p>
+<p>The function should return a tuple containing the highest scoring word that can be formed with the given letters and its score. If no valid words can be formed, the function should return <code class="docutils literal notranslate"><span class="pre">('',</span> <span class="pre">0)</span></code>.</p>
 <p>If multiple words have the same highest score, return the one that comes first alphabetically.</p>
 </section>
 <section id="part-3-handling-blanks">
@@ -405,7 +405,26 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">text_file</span></code>: The path to a text file containing the text to be analyzed</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">word_file</span></code>: The path to a text file containing a list of valid words (one word per line)</p></li>
 </ul>
-<p>The function should read the text file, extract all the words (remove blank lines, split by spaces), and calculate the total Scrabble score for all valid words found in the text. For any word that is not found in the valid words list, subtract 5 points from the total score as a penalty for misspelling. The function should return the total Scrabble score as an integer.</p>
+<p>This function needs to do a couple of things:</p>
+<ul class="simple">
+<li><p>Read the list of valid words from <code class="docutils literal notranslate"><span class="pre">word_file</span></code> and store them in a list</p></li>
+<li><p>Read the text from <code class="docutils literal notranslate"><span class="pre">text_file</span></code>, splitting words up by whitespace and newlines</p></li>
+<li><dl class="simple">
+<dt>For each word in the text</dt><dd><ul>
+<li><dl class="simple">
+<dt>Loop through the valid words and try to find it</dt><dd><ul>
+<li><p>If the word is found, add its Scrabble score to a running total</p></li>
+<li><p>If the word is not found, subtract 5 points from the total as a penalty for misspelling</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The function should return the total Scrabble score as an integer.</p>
 </section>
 <section id="part-5-a-need-for-speed">
 <h2>Part 5: A need for speed<a class="headerlink" href="#part-5-a-need-for-speed" title="Link to this heading">#</a></h2>
